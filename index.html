@@ -29,9 +29,6 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
 body{background:var(--black);color:var(--text);font-family:var(--mono);min-height:100vh;overflow-x:hidden;}
 
 /* CURSOR — desktop only */
-@media(pointer:fine){body{cursor:none;}#cursor,#cursor-ring{display:block;}}
-#cursor{display:none;position:fixed;width:7px;height:7px;background:var(--crimson);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
-#cursor-ring{display:none;position:fixed;width:26px;height:26px;border:.5px solid rgba(122,24,50,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
 
 /* SCANLINES */
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.022) 2px,rgba(0,0,0,.022) 4px);pointer-events:none;z-index:900;}
@@ -116,7 +113,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 .product-card:hover,.product-card:active{background:var(--surface);}
 
 /* transparent shirt images sit on dark bg — no object-fit cover needed */
-.product-img-wrap{position:relative;width:100%;aspect-ratio:1;background:var(--surface2);margin-bottom:1rem;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.product-img-wrap{position:relative;width:100%;aspect-ratio:1;background:var(--black);margin-bottom:1rem;overflow:hidden;display:flex;align-items:center;justify-content:center;}
 .product-img-wrap img{width:90%;height:90%;object-fit:contain;display:block;transition:transform .5s ease,filter .3s;}
 .product-card:hover .product-img-wrap img{transform:scale(1.05);filter:brightness(.82);}
 
@@ -161,7 +158,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 @media(max-width:900px){.catalog-card{grid-template-columns:1fr 1fr;}}
 @media(max-width:600px){.catalog-card{grid-template-columns:1fr;}}
 
-.catalog-img-wrap{position:relative;overflow:hidden;background:var(--surface2);min-height:340px;display:flex;align-items:center;justify-content:center;}
+.catalog-img-wrap{position:relative;overflow:hidden;background:var(--black);min-height:340px;display:flex;align-items:center;justify-content:center;}
 @media(max-width:600px){.catalog-img-wrap{min-height:260px;}}
 .catalog-img-wrap img{width:82%;height:82%;object-fit:contain;display:block;transition:transform .6s ease,filter .3s;}
 .catalog-card:hover .catalog-img-wrap img{transform:scale(1.04);filter:brightness(.82);}
@@ -218,12 +215,41 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 @keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
 .fade-in.visible{opacity:1;transform:translateY(0);}
+/* ── CART DRAWER ── */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1200;opacity:0;pointer-events:none;transition:opacity .3s;}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(400px,100vw);background:#0a0a0a;border-left:.5px solid rgba(255,255,255,.07);z-index:1300;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
+.cart-drawer.open{transform:translateX(0);}
+.cart-header{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.5rem;border-bottom:.5px solid rgba(255,255,255,.07);}
+.cart-title{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.2em;color:#d4d4cc;}
+.cart-close{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.15em;color:rgba(212,212,204,.35);background:none;border:none;cursor:pointer;transition:color .2s;}
+.cart-close:hover{color:#d4d4cc;}
+.cart-items{flex:1;overflow-y:auto;padding:1.2rem 1.5rem;}
+.cart-empty{font-size:.62rem;letter-spacing:.12em;color:rgba(212,212,204,.25);text-align:center;padding:3rem 0;line-height:2.5;}
+.cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:.9rem;align-items:start;padding:.9rem 0;border-bottom:.5px solid rgba(255,255,255,.05);}
+.cart-item-img{width:64px;height:64px;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.cart-item-img img{width:100%;height:100%;object-fit:contain;}
+.cart-item-name{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:300;color:#d4d4cc;margin-bottom:.2rem;}
+.cart-item-meta{font-size:.52rem;letter-spacing:.1em;color:rgba(212,212,204,.3);}
+.cart-item-price{font-size:.62rem;color:rgba(212,212,204,.5);letter-spacing:.08em;white-space:nowrap;}
+.cart-item-remove{display:block;font-size:.5rem;letter-spacing:.12em;color:rgba(122,24,50,.5);background:none;border:none;cursor:pointer;margin-top:.4rem;transition:color .2s;padding:0;}
+.cart-item-remove:hover{color:#7a1832;}
+.cart-qty{display:flex;align-items:center;gap:.5rem;margin-top:.4rem;}
+.cart-qty button{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(212,212,204,.4);background:none;border:.5px solid rgba(255,255,255,.1);width:20px;height:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.cart-qty button:hover{border-color:rgba(255,255,255,.3);color:#d4d4cc;}
+.cart-qty span{font-size:.58rem;color:rgba(212,212,204,.5);min-width:16px;text-align:center;}
+.cart-footer{padding:1.2rem 1.5rem;border-top:.5px solid rgba(255,255,255,.07);}
+.cart-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.cart-subtotal-label{font-size:.58rem;letter-spacing:.15em;color:rgba(212,212,204,.3);}
+.cart-subtotal-price{font-size:.75rem;letter-spacing:.08em;color:#d4d4cc;}
+.cart-checkout-btn{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:#eeeee8;background:none;border:.5px solid rgba(255,255,255,.22);padding:.9rem 1.5rem;cursor:pointer;transition:all .25s;width:100%;text-align:center;}
+.cart-checkout-btn:hover{border-color:#7a1832;background:rgba(122,24,50,.1);color:#fff;}
+.cart-checkout-btn:disabled{opacity:.3;cursor:not-allowed;}
+.added-flash{animation:flash .3s ease;}
+@keyframes flash{0%{background:rgba(122,24,50,.15)}100%{background:none}}
 </style>
 </head>
 <body>
-
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
@@ -247,7 +273,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     <button onclick="showPage('about')" id="nav-about">ABOUT</button>
   </div>
   <div class="nav-right">
-    <button class="nav-cart">cart [0]</button>
+    <button class="nav-cart" id="cart-btn" onclick="toggleCart()">cart [<span id="cart-count">0</span>]</button>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </button>
@@ -278,7 +304,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
       <div class="hero-img-wrap">
         <div class="frame-corner tl"></div><div class="frame-corner tr"></div>
         <div class="frame-corner bl"></div><div class="frame-corner br"></div>
-        <img src="stuck-in-place-black.jpg" alt="Stuck in Place — bulw4rk SS25">
+        <img src="stuck-in-place-black-hero.png" alt="Stuck in Place — bulw4rk SS25">
         <div class="hero-img-tag">// SS25_001</div>
       </div>
     </div>
@@ -294,7 +320,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
       <div class="product-card" onclick="showPage('catalog')">
         <div class="product-img-wrap">
-          <img src="stuck-in-place-black.jpg" alt="Stuck in Place">
+          <img src="stuck-in-place-black-hero.png" alt="Stuck in Place">
           <div class="product-badge">SS25</div>
         </div>
         <div class="product-name">Stuck in Place</div>
@@ -390,7 +416,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     <!-- STUCK IN PLACE -->
     <div class="catalog-card">
       <div class="catalog-img-wrap">
-        <img src="stuck-in-place-black.jpg" alt="Stuck in Place">
+        <img src="stuck-in-place-black-hero.png" alt="Stuck in Place">
       </div>
       <div class="catalog-info">
         <div>
@@ -413,8 +439,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
             <button class="catalog-size-btn" onclick="selectSize(this,'stuck-sizes')">XL</button>
             <button class="catalog-size-btn" onclick="selectSize(this,'stuck-sizes')">2XL</button>
           </div>
-          <div class="catalog-price">$34.00</div>
-          <a href="https://bulw4rk.myshopify.com/products/stuck-in-place-bulw4rk-graphic-t-shirt?variant=47363762258069" target="_blank" class="catalog-buy-btn">BUY NOW →</a>
+          <div class="catalog-price" id="price-stuck">—</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47363762258069','Stuck in Place','stuck-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
@@ -445,8 +470,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
             <button class="catalog-size-btn" onclick="selectSize(this,'fly-sizes')">XL</button>
             <button class="catalog-size-btn" onclick="selectSize(this,'fly-sizes')">2XL</button>
           </div>
-          <div class="catalog-price">$34.00</div>
-          <a href="https://bulw4rk.myshopify.com/products/cant-fly?variant=47368903524501" target="_blank" class="catalog-buy-btn">BUY NOW →</a>
+          <div class="catalog-price" id="price-fly">—</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47368903524501','Can\'t Fly','fly-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
@@ -477,8 +501,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
             <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">XL</button>
             <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">2XL</button>
           </div>
-          <div class="catalog-price">$34.00</div>
-          <a href="https://bulw4rk.myshopify.com/products/do-you-make-time-for-me-graphic-t-shirt?variant=47361935310997" target="_blank" class="catalog-buy-btn">BUY NOW →</a>
+          <div class="catalog-price" id="price-time">—</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47361935310997','Free Time','time-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
@@ -512,8 +535,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
             <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">XL</button>
             <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">2XL</button>
           </div>
-          <div class="catalog-price">$30.00</div>
-          <a href="https://bulw4rk.myshopify.com/products/bulw4rk-embroidered-t-shirt?variant=47361638203541" target="_blank" class="catalog-buy-btn">BUY NOW →</a>
+          <div class="catalog-price" id="price-logo">—</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47361638203541','bulw4rk Logo Tee','logo-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
@@ -569,11 +591,246 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 </div>
 
 <script>
-// CURSOR
-const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+// ── SHOPIFY CONFIG ──
+const SHOP = 'bulw4rk.myshopify.com';
+const TOKEN = '8a2f2d5d7f69fac2cb7996783a372065';
+
+// ── STOREFRONT API QUERY ──
+async function sfFetch(query, variables={}) {
+  const res = await fetch(`https://${SHOP}/api/2024-01/graphql.json`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Shopify-Storefront-Access-Token': TOKEN
+    },
+    body: JSON.stringify({ query, variables })
+  });
+  return res.json();
+}
+
+// ── LOAD LIVE PRICES ──
+// fallback prices shown instantly, overwritten by live data if available
+const FALLBACK_PRICES = {
+  '47363762258069': { key: 'stuck', price: '$34.00' },
+  '47368903524501': { key: 'fly',   price: '$34.00' },
+  '47361935310997': { key: 'time',  price: '$34.00' },
+  '47361638203541': { key: 'logo',  price: '$30.00' }
+};
+
+function applyFallbackPrices() {
+  Object.values(FALLBACK_PRICES).forEach(({key, price}) => {
+    const el = document.getElementById('price-' + key);
+    if (el && el.textContent === '—') el.textContent = price;
+  });
+}
+applyFallbackPrices();
+
+async function loadPrices() {
+  const q = `{
+    nodes(ids: [
+      "gid://shopify/ProductVariant/47363762258069",
+      "gid://shopify/ProductVariant/47368903524501",
+      "gid://shopify/ProductVariant/47361935310997",
+      "gid://shopify/ProductVariant/47361638203541"
+    ]) {
+      ... on ProductVariant {
+        id
+        priceV2 { amount currencyCode }
+      }
+    }
+  }`;
+  try {
+    const data = await sfFetch(q);
+    const nodes = data?.data?.nodes || [];
+    nodes.forEach(n => {
+      if (!n) return;
+      const id = n.id.split('/').pop();
+      const entry = FALLBACK_PRICES[id];
+      if (entry) {
+        const el = document.getElementById('price-' + entry.key);
+        if (el) {
+          const live = '$' + parseFloat(n.priceV2.amount).toFixed(2);
+          el.textContent = live;
+          entry.price = live;
+        }
+      }
+    });
+  } catch(e) {
+    // fallback prices already shown, silently continue
+  }
+}
+loadPrices();
+
+// ── CART STATE ──
+let cart = []; // [{variantId, name, size, price, img, qty}]
+let checkoutUrl = null;
+
+// ── CREATE / GET CHECKOUT ──
+async function getCheckout() {
+  if (checkoutUrl) return checkoutUrl;
+  const q = `mutation {
+    checkoutCreate(input: {}) {
+      checkout { id webUrl }
+      checkoutUserErrors { message }
+    }
+  }`;
+  const data = await sfFetch(q);
+  checkoutUrl = data?.data?.checkoutCreate?.checkout?.webUrl;
+  return checkoutUrl;
+}
+
+// ── ADD TO CART ──
+async function addToCart(variantGid, name, sizeGroupId, btn) {
+  // get selected size
+  const sizeEl = document.getElementById(sizeGroupId)?.querySelector('.catalog-size-btn.active');
+  const size = sizeEl ? sizeEl.textContent : 'M';
+
+  // get price from page
+  const variantId = variantGid.split('/').pop();
+  const priceEl = document.getElementById('price-' + (FALLBACK_PRICES[variantId]?.key || ''));
+  const price = priceEl ? priceEl.textContent : (FALLBACK_PRICES[variantId]?.price || '');
+
+  // get image
+  const imgMap = {
+    '47363762258069': 'stuck-in-place-black-hero.png',
+    '47368903524501': 'fly-away-transparent.png',
+    '47361935310997': 'time.png',
+    '47361638203541': 'bulw4rk-cream-transparent.png'
+  };
+  const img = imgMap[variantId] || '';
+
+  // check if already in cart
+  const existing = cart.find(i => i.variantId === variantGid && i.size === size);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ variantId: variantGid, name, size, price, img, qty: 1 });
+  }
+
+  // flash button
+  btn.textContent = 'ADDED ✓';
+  btn.classList.add('added-flash');
+  setTimeout(() => { btn.textContent = 'ADD TO CART →'; btn.classList.remove('added-flash'); }, 1800);
+
+  updateCartUI();
+  toggleCart(true);
+}
+
+// ── UPDATE CART UI ──
+function updateCartUI() {
+  const count = cart.reduce((a, i) => a + i.qty, 0);
+  document.getElementById('cart-count').textContent = count;
+
+  const itemsEl = document.getElementById('cart-items');
+  const emptyEl = document.getElementById('cart-empty');
+  const checkoutBtn = document.getElementById('checkout-btn');
+
+  if (cart.length === 0) {
+    emptyEl.style.display = 'block';
+    checkoutBtn.disabled = true;
+    document.getElementById('cart-total').textContent = '$0.00';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  checkoutBtn.disabled = false;
+
+  // clear existing items (keep empty msg)
+  itemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
+
+  let total = 0;
+  cart.forEach((item, idx) => {
+    const priceNum = parseFloat(item.price.replace('$','')) || 0;
+    total += priceNum * item.qty;
+
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <div class="cart-item-img">
+        <img src="${item.img}" alt="${item.name}">
+      </div>
+      <div>
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-meta">SIZE: ${item.size}</div>
+        <div class="cart-qty">
+          <button onclick="changeQty(${idx},-1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${idx},1)">+</button>
+        </div>
+        <button class="cart-item-remove" onclick="removeItem(${idx})">REMOVE</button>
+      </div>
+      <div class="cart-item-price">${item.price}</div>
+    `;
+    itemsEl.appendChild(div);
+  });
+
+  document.getElementById('cart-total').textContent = '$' + total.toFixed(2);
+}
+
+function changeQty(idx, delta) {
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx, 1);
+  updateCartUI();
+}
+
+function removeItem(idx) {
+  cart.splice(idx, 1);
+  updateCartUI();
+}
+
+// ── CHECKOUT ──
+async function goCheckout() {
+  const btn = document.getElementById('checkout-btn');
+  btn.textContent = 'CONNECTING...';
+  btn.disabled = true;
+
+  try {
+    // build line items
+    const lineItems = cart.map(i => ({
+      variantId: i.variantId,
+      quantity: i.qty
+    }));
+
+    const q = `mutation checkoutCreate($input: CheckoutInput!) {
+      checkoutCreate(input: $input) {
+        checkout { webUrl }
+        checkoutUserErrors { message field }
+      }
+    }`;
+
+    const data = await sfFetch(q, {
+      input: { lineItems }
+    });
+
+    const url = data?.data?.checkoutCreate?.checkout?.webUrl;
+    if (url) {
+      window.open(url, '_blank');
+    } else {
+      alert('Could not create checkout. Please try again.');
+    }
+  } catch(e) {
+    alert('Connection error. Please try again.');
+  }
+
+  btn.textContent = 'CHECKOUT →';
+  btn.disabled = false;
+}
+
+// ── CART TOGGLE ──
+function toggleCart(forceOpen) {
+  const drawer = document.getElementById('cart-drawer');
+  const overlay = document.getElementById('cart-overlay');
+  const isOpen = drawer.classList.contains('open');
+  if (forceOpen === true || !isOpen) {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  } else {
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
 
 // HAMBURGER
 function toggleMenu(){
@@ -618,5 +875,27 @@ function swapImg(imgId,src){
   setTimeout(()=>{img.src=src;img.style.opacity='1';},280);
 }
 </script>
+
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <div class="cart-title">// YOUR CART</div>
+    <button class="cart-close" onclick="toggleCart()">CLOSE ×</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty" id="cart-empty">
+      nothing here yet.<br>
+      <span style="color:rgba(122,24,50,.4)">// add something</span>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">SUBTOTAL</span>
+      <span class="cart-subtotal-price" id="cart-total">$0.00</span>
+    </div>
+    <button class="cart-checkout-btn" id="checkout-btn" onclick="goCheckout()" disabled>CHECKOUT →</button>
+  </div>
+</div>
 </body>
 </html>
