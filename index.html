@@ -869,7 +869,7 @@ function toggleMenu(){
 }
 
 // PAGE NAV
-function showPage(id, pushState=true){
+function showPage(id, updateHash=true){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.nav-center button').forEach(b=>b.classList.remove('active'));
@@ -879,23 +879,23 @@ function showPage(id, pushState=true){
   document.getElementById('mobile-menu').classList.remove('open');
   window.scrollTo(0,0);
   setTimeout(initFadeIns,80);
-  // push to browser history so back/forward buttons work
-  if(pushState) {
-    const url = id === 'home' ? '/' : '/' + id;
-    history.pushState({page: id}, '', url);
+  // use hash routing — works on all static hosts including GitHub Pages
+  if(updateHash) {
+    window.location.hash = id === 'home' ? '' : id;
   }
   if (pageHistory[pageHistory.length - 1] !== id) pageHistory.push(id);
 }
 
-// handle browser back/forward buttons
-window.addEventListener('popstate', function(e){
-  const id = e.state?.page || 'home';
+// handle browser back/forward via hashchange
+window.addEventListener('hashchange', function(){
+  const id = window.location.hash.replace('#','') || 'home';
   showPage(id, false);
 });
 
-// set initial history state on load
+// load correct page on initial visit based on hash
 window.addEventListener('DOMContentLoaded', function(){
-  history.replaceState({page: 'home'}, '', '/');
+  const id = window.location.hash.replace('#','') || 'home';
+  showPage(id, false);
 });
 
 // FADE INS
