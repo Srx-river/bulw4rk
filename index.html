@@ -82,14 +82,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 .hero-right{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse 55% 55% at 60% 50%,rgba(122,24,50,.07) 0%,transparent 70%);}
 
 /* hero image — transparent bg so shirt floats */
-.hero-img-wrap{position:relative;width:min(300px,70%);z-index:2;opacity:0;animation:fadeup 1s .4s forwards;}
+.hero-img-wrap{position:relative;width:min(520px,88%);z-index:2;opacity:0;animation:fadeup 1s .4s forwards;}
 .hero-img-wrap img{width:100%;display:block;filter:brightness(.95);}
 .hero-img-tag{position:absolute;bottom:-1.6rem;left:0;font-size:0.702rem;letter-spacing:.18em;color:var(--crimson-dim);}
-.frame-corner{position:absolute;width:28px;height:28px;border-color:rgba(122,24,50,.7);border-style:solid;}
-.frame-corner.tl{top:-5px;left:-5px;border-width:.5px 0 0 .5px;}
-.frame-corner.tr{top:-5px;right:-5px;border-width:.5px .5px 0 0;}
-.frame-corner.bl{bottom:-5px;left:-5px;border-width:0 0 .5px .5px;}
-.frame-corner.br{bottom:-5px;right:-5px;border-width:0 .5px .5px 0;}
+.frame-corner{position:absolute;width:48px;height:48px;border-color:rgba(122,24,50,.7);border-style:solid;}
+.frame-corner.tl{top:-12px;left:-12px;border-width:.5px 0 0 .5px;}
+.frame-corner.tr{top:-12px;right:-12px;border-width:.5px .5px 0 0;}
+.frame-corner.bl{bottom:-12px;left:-12px;border-width:0 0 .5px .5px;}
+.frame-corner.br{bottom:-12px;right:-12px;border-width:0 .5px .5px 0;}
 
 @media(max-width:640px){
   .hero{grid-template-columns:1fr;min-height:auto;}
@@ -218,7 +218,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 /* ── FEATURED LABEL ── */
 .featured-label{
   position:absolute;
-  top:-1.8rem;
+  top:-2.5rem;
   left:50%;
   transform:translateX(-50%);
   font-family:var(--mono);
@@ -326,7 +326,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
         <div class="featured-label">FEATURED ITEM</div>
         <div class="frame-corner tl"></div><div class="frame-corner tr"></div>
         <div class="frame-corner bl"></div><div class="frame-corner br"></div>
-        <img src="stuck-in-place-black-hero.png" alt="Stuck in Place — bulw4rk SS25" style="position:relative;z-index:2;width:85%;margin:0 auto;display:block;">
+        <img src="stuck-in-place-black-hero.png" alt="Stuck in Place — bulw4rk SS25" style="position:relative;z-index:2;width:100%;margin:0 auto;display:block;">
         <div class="hero-img-tag">// SS25_001</div>
       </div>
     </div>
