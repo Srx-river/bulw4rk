@@ -629,10 +629,12 @@ const FALLBACK_PRICES = {
 function applyFallbackPrices() {
   Object.values(FALLBACK_PRICES).forEach(({key, price}) => {
     const el = document.getElementById('price-' + key);
-    if (el && el.textContent === '—') el.textContent = price;
+    if (el) el.textContent = price; // always set, don't wait for —
   });
 }
+// Apply immediately and also after DOM ready
 applyFallbackPrices();
+document.addEventListener('DOMContentLoaded', applyFallbackPrices);
 
 async function loadPrices() {
   const q = `{
@@ -794,7 +796,7 @@ async function goCheckout() {
   btn.disabled = true;
 
   try {
-    // build line items
+    // Try Storefront API first
     const lineItems = cart.map(i => ({
       variantId: i.variantId,
       quantity: i.qty
@@ -807,18 +809,29 @@ async function goCheckout() {
       }
     }`;
 
-    const data = await sfFetch(q, {
-      input: { lineItems }
-    });
-
+    const data = await sfFetch(q, { input: { lineItems } });
     const url = data?.data?.checkoutCreate?.checkout?.webUrl;
+
     if (url) {
       window.open(url, '_blank');
     } else {
-      alert('Could not create checkout. Please try again.');
+      // Fallback: build Shopify cart permalink URL
+      // Format: /cart/variantId:qty,variantId:qty
+      const cartItems = cart.map(i => {
+        const vid = i.variantId.split('/').pop();
+        return `${vid}:${i.qty}`;
+      }).join(',');
+      const cartUrl = `https://bulw4rk.myshopify.com/cart/${cartItems}`;
+      window.open(cartUrl, '_blank');
     }
   } catch(e) {
-    alert('Connection error. Please try again.');
+    // Fallback on any error
+    const cartItems = cart.map(i => {
+      const vid = i.variantId.split('/').pop();
+      return `${vid}:${i.qty}`;
+    }).join(',');
+    const cartUrl = `https://bulw4rk.myshopify.com/cart/${cartItems}`;
+    window.open(cartUrl, '_blank');
   }
 
   btn.textContent = 'CHECKOUT →';
@@ -881,7 +894,11 @@ function showPage(id, updateHash=true){
   setTimeout(initFadeIns,80);
   // use hash routing — works on all static hosts including GitHub Pages
   if(updateHash) {
-    window.location.hash = id === 'home' ? '' : id;
+    if(id === 'home') {
+      history.replaceState(null, '', window.location.pathname);
+    } else {
+      window.location.hash = id;
+    }
   }
   if (pageHistory[pageHistory.length - 1] !== id) pageHistory.push(id);
 }
@@ -893,10 +910,10 @@ window.addEventListener('hashchange', function(){
 });
 
 // load correct page on initial visit based on hash
-window.addEventListener('DOMContentLoaded', function(){
+(function(){
   const id = window.location.hash.replace('#','') || 'home';
-  showPage(id, false);
-});
+  if(id !== 'home') showPage(id, false);
+})();
 
 // FADE INS
 function initFadeIns(){
