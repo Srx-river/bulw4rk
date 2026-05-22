@@ -447,7 +447,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
             <button class="catalog-size-btn" onclick="selectSize(this,'stuck-sizes')">XL</button>
             <button class="catalog-size-btn" onclick="selectSize(this,'stuck-sizes')">2XL</button>
           </div>
-          <div class="catalog-price" id="price-stuck">—</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47363762258069','Stuck in Place','stuck-sizes',this)">ADD TO CART →</button>
+          <div class="catalog-price" id="price-stuck">$34.00</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47363762258069','Stuck in Place','stuck-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
@@ -478,7 +478,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
             <button class="catalog-size-btn" onclick="selectSize(this,'fly-sizes')">XL</button>
             <button class="catalog-size-btn" onclick="selectSize(this,'fly-sizes')">2XL</button>
           </div>
-          <div class="catalog-price" id="price-fly">—</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47368903524501','Can\'t Fly','fly-sizes',this)">ADD TO CART →</button>
+          <div class="catalog-price" id="price-fly">$34.00</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47368903524501','Can\'t Fly','fly-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
@@ -509,7 +509,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
             <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">XL</button>
             <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">2XL</button>
           </div>
-          <div class="catalog-price" id="price-time">—</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47361935310997','Free Time','time-sizes',this)">ADD TO CART →</button>
+          <div class="catalog-price" id="price-time">$34.00</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47361935310997','Free Time','time-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
@@ -543,7 +543,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
             <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">XL</button>
             <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">2XL</button>
           </div>
-          <div class="catalog-price" id="price-logo">—</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47361638203541','bulw4rk Logo Tee','logo-sizes',this)">ADD TO CART →</button>
+          <div class="catalog-price" id="price-logo">$30.00</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47361638203541','bulw4rk Logo Tee','logo-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
@@ -600,95 +600,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 </div>
 
 <script>
-// ── SHOPIFY CONFIG ──
-const SHOP = 'bulw4rk.myshopify.com';
-const TOKEN = '6bf5ede2d34625600ca61b45918101ef';
-
-// ── STOREFRONT API QUERY ──
-async function sfFetch(query, variables={}) {
-  const res = await fetch(`https://${SHOP}/api/2024-10/graphql.json`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': TOKEN
-    },
-    body: JSON.stringify({ query, variables })
-  });
-  return res.json();
-}
-
-// ── LOAD LIVE PRICES ──
-// fallback prices shown instantly, overwritten by live data if available
-const FALLBACK_PRICES = {
-  '47363762258069': { key: 'stuck', price: '$34.99' },
-  '47368903524501': { key: 'fly',   price: '$34.99' },
-  '47361935310997': { key: 'time',  price: '$34.99' },
-  '47361638203541': { key: 'logo',  price: '$29.99' }
+// ── PRICES (hardcoded, update manually if prices change) ──
+const PRICES = {
+  stuck: '$34.00',
+  fly:   '$34.00',
+  time:  '$34.00',
+  logo:  '$30.00'
 };
-
-function applyFallbackPrices() {
-  Object.values(FALLBACK_PRICES).forEach(({key, price}) => {
-    const el = document.getElementById('price-' + key);
-    if (el) el.textContent = price; // always set, don't wait for —
-  });
-}
-// Apply immediately and also after DOM ready
-applyFallbackPrices();
-document.addEventListener('DOMContentLoaded', applyFallbackPrices);
-
-async function loadPrices() {
-  const q = `{
-    nodes(ids: [
-      "gid://shopify/ProductVariant/47363762258069",
-      "gid://shopify/ProductVariant/47368903524501",
-      "gid://shopify/ProductVariant/47361935310997",
-      "gid://shopify/ProductVariant/47361638203541"
-    ]) {
-      ... on ProductVariant {
-        id
-        priceV2 { amount currencyCode }
-      }
-    }
-  }`;
-  try {
-    const data = await sfFetch(q);
-    const nodes = data?.data?.nodes || [];
-    nodes.forEach(n => {
-      if (!n) return;
-      const id = n.id.split('/').pop();
-      const entry = FALLBACK_PRICES[id];
-      if (entry) {
-        const el = document.getElementById('price-' + entry.key);
-        if (el) {
-          const live = '$' + parseFloat(n.priceV2.amount).toFixed(2);
-          el.textContent = live;
-          entry.price = live;
-        }
-      }
-    });
-  } catch(e) {
-    // fallback prices already shown, silently continue
-  }
-}
-loadPrices();
 
 // ── CART STATE ──
 let cart = []; // [{variantId, name, size, price, img, qty}]
-let checkoutUrl = null;
-
-// ── CREATE / GET CHECKOUT ──
-async function getCheckout() {
-  if (checkoutUrl) return checkoutUrl;
-  const q = `mutation {
-    checkoutCreate(input: {}) {
-      checkout { id webUrl }
-      checkoutUserErrors { message }
-    }
-  }`;
-  const data = await sfFetch(q);
-  checkoutUrl = data?.data?.checkoutCreate?.checkout?.webUrl;
-  return checkoutUrl;
-}
 
 // ── ADD TO CART ──
 async function addToCart(variantGid, name, sizeGroupId, btn) {
@@ -790,52 +711,16 @@ function removeItem(idx) {
 }
 
 // ── CHECKOUT ──
-async function goCheckout() {
+function goCheckout() {
   const btn = document.getElementById('checkout-btn');
-  btn.textContent = 'CONNECTING...';
+  btn.textContent = 'OPENING...';
   btn.disabled = true;
-
-  try {
-    // Try Storefront API first
-    const lineItems = cart.map(i => ({
-      variantId: i.variantId,
-      quantity: i.qty
-    }));
-
-    const q = `mutation checkoutCreate($input: CheckoutInput!) {
-      checkoutCreate(input: $input) {
-        checkout { webUrl }
-        checkoutUserErrors { message field }
-      }
-    }`;
-
-    const data = await sfFetch(q, { input: { lineItems } });
-    const url = data?.data?.checkoutCreate?.checkout?.webUrl;
-
-    if (url) {
-      window.open(url, '_blank');
-    } else {
-      // Fallback: build Shopify cart permalink URL
-      // Format: /cart/variantId:qty,variantId:qty
-      const cartItems = cart.map(i => {
-        const vid = i.variantId.split('/').pop();
-        return `${vid}:${i.qty}`;
-      }).join(',');
-      const cartUrl = `https://bulw4rk.myshopify.com/cart/${cartItems}`;
-      window.open(cartUrl, '_blank');
-    }
-  } catch(e) {
-    // Fallback on any error
-    const cartItems = cart.map(i => {
-      const vid = i.variantId.split('/').pop();
-      return `${vid}:${i.qty}`;
-    }).join(',');
-    const cartUrl = `https://bulw4rk.myshopify.com/cart/${cartItems}`;
-    window.open(cartUrl, '_blank');
-  }
-
-  btn.textContent = 'CHECKOUT →';
-  btn.disabled = false;
+  const cartItems = cart.map(i => {
+    const vid = i.variantId.split('/').pop();
+    return `${vid}:${i.qty}`;
+  }).join(',');
+  window.open(`https://bulw4rk.myshopify.com/cart/${cartItems}`, '_blank');
+  setTimeout(() => { btn.textContent = 'CHECKOUT →'; btn.disabled = false; }, 1000);
 }
 
 // ── CART TOGGLE ──
@@ -853,7 +738,6 @@ function toggleCart(forceOpen) {
     document.body.style.overflow = '';
   }
 }
-
 
 // ── HISTORY / BACK NAVIGATION ──
 let pageHistory = ['home'];
