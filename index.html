@@ -729,16 +729,16 @@ async function sfFetch(query, variables={}) {
 async function loadProductData() {
   const q = `{
     stuck: product(handle: "stuck-in-place-bulw4rk-graphic-t-shirt") {
-      variants(first: 20) { nodes { id title priceV2 { amount } } }
+      variants(first: 50) { nodes { id priceV2 { amount } selectedOptions { name value } } }
     }
     fly: product(handle: "cant-fly") {
-      variants(first: 20) { nodes { id title priceV2 { amount } } }
+      variants(first: 50) { nodes { id priceV2 { amount } selectedOptions { name value } } }
     }
     time: product(handle: "do-you-make-time-for-me-graphic-t-shirt") {
-      variants(first: 20) { nodes { id title priceV2 { amount } } }
+      variants(first: 50) { nodes { id priceV2 { amount } selectedOptions { name value } } }
     }
     logo: product(handle: "bulw4rk-embroidered-t-shirt") {
-      variants(first: 20) { nodes { id title priceV2 { amount } } }
+      variants(first: 50) { nodes { id priceV2 { amount } selectedOptions { name value } } }
     }
   }`;
 
@@ -746,15 +746,44 @@ async function loadProductData() {
     const data = await sfFetch(q);
     const products = data?.data || {};
 
+    // default color per product — black for graphic tees, cream for logo
+    const defaultColors = {
+      stuck: 'Solid Black',
+      fly:   'Solid Black',
+      time:  'Solid Black',
+      logo:  'Solid Natural'
+    };
+
     Object.entries(products).forEach(([key, product]) => {
       if (!product) return;
+      const defaultColor = defaultColors[key];
+
       product.variants.nodes.forEach(v => {
-        // title is usually "S" or "XS / Black" etc — extract size
-        const size = v.title.split(' / ')[0].split(' ')[0].toUpperCase();
-        VARIANT_MAP[key][size] = v.id;
-        // update price display
+        const opts = {};
+        v.selectedOptions.forEach(o => { opts[o.name.toLowerCase()] = o.value; });
+
+        const color = opts['color'] || opts['colour'] || '';
+        const size  = opts['size']  || '';
+
+        if (!size) return;
+
+        // build color+size key and also default color size key
+        const sizeKey = size.toUpperCase()
+          .replace('X-SMALL','XS').replace('SMALL','S')
+          .replace('MEDIUM','M').replace('LARGE','L')
+          .replace('X-LARGE','XL').replace('2X-LARGE','2XL')
+          .replace('3X-LARGE','3XL');
+
+        // store by size under default color
+        if (color === defaultColor || !VARIANT_MAP[key][sizeKey]) {
+          VARIANT_MAP[key][sizeKey] = v.id;
+        }
+
+        // update price from first variant
         const el = document.getElementById('price-' + key);
-        if (el) el.textContent = '$' + parseFloat(v.priceV2.amount).toFixed(2);
+        if (el && el.textContent === PRICES[key]) {
+          el.textContent = '$' + parseFloat(v.priceV2.amount).toFixed(2);
+        }
       });
     });
     console.log('Variants loaded:', VARIANT_MAP);
@@ -905,7 +934,6 @@ async function goCheckout() {
     if (url) {
       window.open(url, '_blank');
     } else {
-      // fallback to cart permalink with correct variant IDs
       const cartItems = cart.map(i => {
         const vid = i.variantId.split('/').pop();
         return `${vid}:${i.qty}`;
