@@ -799,7 +799,7 @@ async function addToCart(variantGid, name, sizeGroupId, btn) {
     '47361935310997': 'time.png',
     '47361638203541': 'bulw4rk-cream-transparent.png'
   };
-  const img = imgMap[variantId] || '';
+  const img = imgMap[baseId] || '';
 
   // check if already in cart
   const existing = cart.find(i => i.variantId === resolvedVariantGid && i.size === size);
