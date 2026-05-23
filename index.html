@@ -688,13 +688,81 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 </div>
 
 <script>
-// ── PRICES (hardcoded, update manually if prices change) ──
+// ── SHOPIFY CONFIG ──
+const SHOP  = 'bulw4rk.myshopify.com';
+const TOKEN = '6bf5ede2d34625600ca61b45918101ef';
+
+// ── PRICES (fallback) ──
 const PRICES = {
   stuck: '$23.99',
   fly:   '$24.99',
   time:  '$23.99',
   logo:  '$20.99'
 };
+
+// ── PRODUCT HANDLE → variant map (populated on load) ──
+// Base variant IDs (default/XS) — used as fallback
+const BASE_VARIANTS = {
+  stuck: 'gid://shopify/ProductVariant/47363762258069',
+  fly:   'gid://shopify/ProductVariant/47368903524501',
+  time:  'gid://shopify/ProductVariant/47361935310997',
+  logo:  'gid://shopify/ProductVariant/47361638203541'
+};
+
+// Will be populated with { productKey: { size: variantId } }
+const VARIANT_MAP = { stuck: {}, fly: {}, time: {}, logo: {} };
+
+// ── STOREFRONT API FETCH ──
+async function sfFetch(query, variables={}) {
+  const res = await fetch(`https://${SHOP}/api/2024-10/graphql.json`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Shopify-Storefront-Access-Token': TOKEN
+    },
+    body: JSON.stringify({ query, variables })
+  });
+  return res.json();
+}
+
+// ── LOAD ALL VARIANTS + PRICES ──
+async function loadProductData() {
+  const q = `{
+    stuck: product(handle: "stuck-in-place-bulw4rk-graphic-t-shirt") {
+      variants(first: 20) { nodes { id title priceV2 { amount } } }
+    }
+    fly: product(handle: "cant-fly") {
+      variants(first: 20) { nodes { id title priceV2 { amount } } }
+    }
+    time: product(handle: "do-you-make-time-for-me-graphic-t-shirt") {
+      variants(first: 20) { nodes { id title priceV2 { amount } } }
+    }
+    logo: product(handle: "bulw4rk-embroidered-t-shirt") {
+      variants(first: 20) { nodes { id title priceV2 { amount } } }
+    }
+  }`;
+
+  try {
+    const data = await sfFetch(q);
+    const products = data?.data || {};
+
+    Object.entries(products).forEach(([key, product]) => {
+      if (!product) return;
+      product.variants.nodes.forEach(v => {
+        // title is usually "S" or "XS / Black" etc — extract size
+        const size = v.title.split(' / ')[0].split(' ')[0].toUpperCase();
+        VARIANT_MAP[key][size] = v.id;
+        // update price display
+        const el = document.getElementById('price-' + key);
+        if (el) el.textContent = '$' + parseFloat(v.priceV2.amount).toFixed(2);
+      });
+    });
+    console.log('Variants loaded:', VARIANT_MAP);
+  } catch(e) {
+    console.log('Product data load error:', e);
+  }
+}
+loadProductData();
 
 // ── CART STATE ──
 let cart = []; // [{variantId, name, size, price, img, qty}]
@@ -703,17 +771,26 @@ let cart = []; // [{variantId, name, size, price, img, qty}]
 async function addToCart(variantGid, name, sizeGroupId, btn) {
   // get selected size
   const sizeEl = document.getElementById(sizeGroupId)?.querySelector('.catalog-size-btn.active');
-  const size = sizeEl ? sizeEl.textContent : 'M';
+  const size = sizeEl ? sizeEl.textContent.trim() : 'M';
 
-  // get price from PRICES map
-  const variantId = variantGid.split('/').pop();
-  const priceMap = {
-    '47363762258069': '$23.99',
-    '47368903524501': '$24.99',
-    '47361935310997': '$23.99',
-    '47361638203541': '$20.99'
+  // find the product key from base variant
+  const baseId = variantGid.split('/').pop();
+  const keyMap = {
+    '47363762258069': 'stuck',
+    '47368903524501': 'fly',
+    '47361935310997': 'time',
+    '47361638203541': 'logo'
   };
-  const price = priceMap[variantId] || '';
+  const productKey = keyMap[baseId];
+
+  // get correct variant ID for selected size
+  let resolvedVariantGid = VARIANT_MAP[productKey]?.[size] || variantGid;
+
+  // get price
+  const priceMap = {
+    stuck: '$23.99', fly: '$24.99', time: '$23.99', logo: '$20.99'
+  };
+  const price = priceMap[productKey] || '';
 
   // get image
   const imgMap = {
@@ -725,11 +802,11 @@ async function addToCart(variantGid, name, sizeGroupId, btn) {
   const img = imgMap[variantId] || '';
 
   // check if already in cart
-  const existing = cart.find(i => i.variantId === variantGid && i.size === size);
+  const existing = cart.find(i => i.variantId === resolvedVariantGid && i.size === size);
   if (existing) {
     existing.qty++;
   } else {
-    cart.push({ variantId: variantGid, name, size, price, img, qty: 1 });
+    cart.push({ variantId: resolvedVariantGid, name, size, price, img, qty: 1 });
   }
 
   // flash button
@@ -804,16 +881,47 @@ function removeItem(idx) {
 }
 
 // ── CHECKOUT ──
-function goCheckout() {
+async function goCheckout() {
   const btn = document.getElementById('checkout-btn');
-  btn.textContent = 'OPENING...';
+  btn.textContent = 'CONNECTING...';
   btn.disabled = true;
-  const cartItems = cart.map(i => {
-    const vid = i.variantId.split('/').pop();
-    return `${vid}:${i.qty}`;
-  }).join(',');
-  window.open(`https://bulw4rk.myshopify.com/cart/${cartItems}`, '_blank');
-  setTimeout(() => { btn.textContent = 'CHECKOUT →'; btn.disabled = false; }, 1000);
+
+  try {
+    const lineItems = cart.map(i => ({
+      variantId: i.variantId,
+      quantity: i.qty
+    }));
+
+    const q = `mutation checkoutCreate($input: CheckoutInput!) {
+      checkoutCreate(input: $input) {
+        checkout { webUrl }
+        checkoutUserErrors { message field }
+      }
+    }`;
+
+    const data = await sfFetch(q, { input: { lineItems } });
+    const url = data?.data?.checkoutCreate?.checkout?.webUrl;
+
+    if (url) {
+      window.open(url, '_blank');
+    } else {
+      // fallback to cart permalink with correct variant IDs
+      const cartItems = cart.map(i => {
+        const vid = i.variantId.split('/').pop();
+        return `${vid}:${i.qty}`;
+      }).join(',');
+      window.open(`https://bulw4rk.myshopify.com/cart/${cartItems}`, '_blank');
+    }
+  } catch(e) {
+    const cartItems = cart.map(i => {
+      const vid = i.variantId.split('/').pop();
+      return `${vid}:${i.qty}`;
+    }).join(',');
+    window.open(`https://bulw4rk.myshopify.com/cart/${cartItems}`, '_blank');
+  }
+
+  btn.textContent = 'CHECKOUT →';
+  btn.disabled = false;
 }
 
 // ── CART TOGGLE ──
