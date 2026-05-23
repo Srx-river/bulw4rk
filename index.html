@@ -454,10 +454,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
-  <button onclick="showPage('home');toggleMenu()">HOME</button>
-  <button onclick="showPage('catalog');toggleMenu()">CATALOG</button>
-  <button onclick="showPage('about');toggleMenu()">ABOUT</button>
-  <button onclick="showPage('contact');toggleMenu()">CONTACT</button>
+  <button onclick="showPage('home')">HOME</button>
+  <button onclick="showPage('catalog')">CATALOG</button>
+  <button onclick="showPage('about')">ABOUT</button>
+  <button onclick="showPage('contact')">CONTACT</button>
   <button onclick="toggleMenu()" style="color:rgba(212,212,204,.15);font-size:.55rem;letter-spacing:.2em">CLOSE ×</button>
 </div>
 
@@ -588,7 +588,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
     <!-- STUCK IN PLACE -->
     <div class="catalog-card">
-      <div class="catalog-img-wrap">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-stuck').src,'Stuck in Place')">
         <img id="catalog-img-stuck" src="stuck-in-place-black-hero.png" alt="Stuck in Place">
       </div>
       <div class="catalog-info">
@@ -619,7 +619,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
     <!-- CAN'T FLY -->
     <div class="catalog-card">
-      <div class="catalog-img-wrap">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-fly').src,'Can\'t Fly')">
         <img id="catalog-img-fly" src="fly-away-transparent.png" alt="Can't Fly">
       </div>
       <div class="catalog-info">
@@ -650,7 +650,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
     <!-- FREE TIME -->
     <div class="catalog-card">
-      <div class="catalog-img-wrap">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-time').src,'Free Time')">
         <img id="catalog-img-time" src="time.png" alt="Free Time">
       </div>
       <div class="catalog-info">
@@ -691,7 +691,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
     <!-- LOGO TEE -->
     <div class="catalog-card">
-      <div class="catalog-img-wrap">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-logo').src,'bulw4rk Logo Tee')">
         <img id="catalog-img-logo" src="bulwarkcream.png" alt="bulw4rk Logo Tee">
       </div>
       <div class="catalog-info">
