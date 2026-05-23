@@ -613,19 +613,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
         </div>
         <div>
           <div class="color-selector">
-          <div class="color-selector-label">// COLOR</div>
-          <div class="color-dots"><div class="color-dot active" style="background:#f0e6d3" title="Cream" onclick="selectProductColor('logo','bulwarkcream.png','Solid Natural',this,'logo-img')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('logo','bulwarkwhite.png','Solid White',this,'logo-img')"></div><div class="color-dot " style="background:#e8e0d0" title="Vintage" onclick="selectProductColor('logo','bulwarkvintagewhite.png','Solid Vintage White',this,'logo-img')"></div><div class="color-dot " style="background:#c8b89a" title="Tan" onclick="selectProductColor('logo','bulwarktan.png','Solid Tan',this,'logo-img')"></div><div class="color-dot " style="background:#98d4b0" title="Mint" onclick="selectProductColor('logo','bulwarkmint.png','Solid Mint',this,'logo-img')"></div><div class="color-dot " style="background:#c08090" title="Mauve" onclick="selectProductColor('logo','bulwarkmuave.png','Solid Mauve',this,'logo-img')"></div><div class="color-dot " style="background:#e8a0a0" title="Pink" onclick="selectProductColor('logo','bulwarkpink.png','Solid Pink',this,'logo-img')"></div><div class="color-dot " style="background:#f4c0c0" title="Light Pink" onclick="selectProductColor('logo','bulwarklightpink.png','Solid Light Pink',this,'logo-img')"></div><span class="selected-color-name" id="color-name-logo">Cream</span></div>
-        </div>
-          <div class="catalog-label">SIZE</div>
-          <div class="catalog-size-row" id="logo-sizes">
-            <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">XS</button>
-            <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">S</button>
-            <button class="catalog-size-btn active" onclick="selectSize(this,'logo-sizes')">M</button>
-            <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">L</button>
-            <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">XL</button>
-            <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">2XL</button>
+            <div class="color-selector-label">// COLOR</div>
+            <div class="color-dots">
+              <div class="color-dot active" style="background:#1a1a1a" title="Black" onclick="selectProductColor('time','time.png','Solid Black',this,'catalog-img-time')"></div>
+              <div class="color-dot" style="background:#f0f0f0" title="White" onclick="selectProductColor('time','timewhite.png','Solid White',this,'catalog-img-time')"></div>
+              <div class="color-dot" style="background:#e8dcc8" title="Cream" onclick="selectProductColor('time','timesolidcream.png','Solid Natural',this,'catalog-img-time')"></div>
+              <div class="color-dot" style="background:#b0aba3" title="Grey" onclick="selectProductColor('time','timelightgrey.png','Solid Light Grey',this,'catalog-img-time')"></div>
+              <div class="color-dot" style="background:#e8a0a0" title="Pink" onclick="selectProductColor('time','timepink.png','Solid Pink',this,'catalog-img-time')"></div>
+              <div class="color-dot" style="background:#c0392b" title="Red" onclick="selectProductColor('time','timesolidred.png','Solid Red',this,'catalog-img-time')"></div>
+              <div class="color-dot" style="background:#2e8b57" title="Green" onclick="selectProductColor('time','timekellygreen.png','Solid Kelly Green',this,'catalog-img-time')"></div>
+              <span class="selected-color-name" id="color-name-time">Black</span>
+            </div>
           </div>
-          <div class="catalog-price" id="price-logo">$20.99</div><button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47361638203541','bulw4rk Logo Tee','logo-sizes',this)">ADD TO CART →</button>
+          <div class="catalog-label">SIZE</div>
+          <div class="catalog-size-row" id="time-sizes">
+            <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">XS</button>
+            <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">S</button>
+            <button class="catalog-size-btn active" onclick="selectSize(this,'time-sizes')">M</button>
+            <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">L</button>
+            <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">XL</button>
+            <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">2XL</button>
+          </div>
+          <div class="catalog-price" id="price-time">$23.99</div>
+          <button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47361935310997','Free Time','time-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
