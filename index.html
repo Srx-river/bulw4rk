@@ -883,6 +883,9 @@ function updateCartUI() {
   const emptyEl = document.getElementById('cart-empty');
   const checkoutBtn = document.getElementById('checkout-btn');
 
+  // always clear existing items first
+  itemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
+
   if (cart.length === 0) {
     emptyEl.style.display = 'block';
     checkoutBtn.disabled = true;
@@ -892,9 +895,6 @@ function updateCartUI() {
 
   emptyEl.style.display = 'none';
   checkoutBtn.disabled = false;
-
-  // clear existing items (keep empty msg)
-  itemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
 
   let total = 0;
   cart.forEach((item, idx) => {
