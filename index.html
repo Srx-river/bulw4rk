@@ -212,6 +212,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 @keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
 .fade-in.visible{opacity:1;transform:translateY(0);}
+/* ── COLOR SELECTOR ── */
+.color-selector { margin-bottom: 1rem; }
+.color-selector-label { font-size: 0.702rem; letter-spacing: 0.2em; color: rgba(212,212,204,.2); margin-bottom: 0.5rem; }
+.color-dots { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+.color-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,.15);
+  cursor: pointer; transition: transform .15s, border-color .2s;
+  position: relative; flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.color-dot:hover { transform: scale(1.2); }
+.color-dot.active { border-color: rgba(255,255,255,.8); border-width: 2px; }
+.color-dot[title]::after {
+  content: attr(title);
+  position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%);
+  background: rgba(10,10,10,.9); color: rgba(212,212,204,.8);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.54rem; letter-spacing: .12em;
+  padding: 3px 7px; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity .15s;
+  border: .5px solid rgba(255,255,255,.08);
+}
+.color-dot:hover::after { opacity: 1; }
+.selected-color-name {
+  font-size: 0.621rem; letter-spacing: .12em;
+  color: rgba(212,212,204,.35); margin-left: 6px;
+}
+
 /* ── CONTACT PAGE ── */
 #contact { padding-top: var(--top); }
 .contact-wrap {
@@ -432,7 +461,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
       <div class="product-card" onclick="showPage('catalog')">
         <div class="product-img-wrap">
-          <img src="fly-away-transparent.png" alt="Can't Fly">
+          <img id="catalog-img-fly" src="fly-away-transparent.png" alt="Can't Fly">
           <div class="product-badge">SS25</div>
         </div>
         <div class="product-name">Can't Fly</div>
@@ -446,7 +475,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
       <div class="product-card" onclick="showPage('catalog')">
         <div class="product-img-wrap">
-          <img src="time.png" alt="Free Time">
+          <img id="catalog-img-time" src="time.png" alt="Free Time">
           <div class="product-badge">SS25</div>
         </div>
         <div class="product-name">Free Time</div>
@@ -524,10 +553,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
           <div class="catalog-desc">Heavyweight 100% cotton. Unisex relaxed fit.<br>Screen printed in white on black.</div>
         </div>
         <div>
-          <div class="catalog-label">COLOR</div>
-          <div class="catalog-color-swatches">
-            <div class="catalog-swatch swatch-black active" title="Black" onclick="selectColor(this)"></div>
-          </div>
+          <div class="color-selector">
+          <div class="color-selector-label">// COLOR</div>
+          <div class="color-dots"><div class="color-dot active" style="background:#1a1a1a" title="Black" onclick="selectProductColor('stuck','stuck-in-place-black-hero.png','Solid Black',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('stuck','stuckwhite.png','Solid White',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#e8dcc8" title="Natural" onclick="selectProductColor('stuck','stucksolidnatural.png','Solid Natural',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#c8b89a" title="Tan" onclick="selectProductColor('stuck','stucktan.png','Solid Tan',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#3d5a80" title="Indigo" onclick="selectProductColor('stuck','stuckindigo.png','Solid Indigo',this,'catalog-img-stuck')"></div><span class="selected-color-name" id="color-name-stuck">Black</span></div>
+        </div>
           <div class="catalog-label">SIZE</div>
           <div class="catalog-size-row" id="stuck-sizes">
             <button class="catalog-size-btn" onclick="selectSize(this,'stuck-sizes')">XS</button>
@@ -555,10 +584,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
           <div class="catalog-desc">Heavyweight 100% cotton. Unisex relaxed fit.<br>Screen printed in white on black.</div>
         </div>
         <div>
-          <div class="catalog-label">COLOR</div>
-          <div class="catalog-color-swatches">
-            <div class="catalog-swatch swatch-black active" title="Black" onclick="selectColor(this)"></div>
-          </div>
+          <div class="color-selector">
+          <div class="color-selector-label">// COLOR</div>
+          <div class="color-dots"><div class="color-dot active" style="background:#1a1a1a" title="Black" onclick="selectProductColor('stuck','stuck-in-place-black-hero.png','Solid Black',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('stuck','stuckwhite.png','Solid White',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#e8dcc8" title="Natural" onclick="selectProductColor('stuck','stucksolidnatural.png','Solid Natural',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#c8b89a" title="Tan" onclick="selectProductColor('stuck','stucktan.png','Solid Tan',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#3d5a80" title="Indigo" onclick="selectProductColor('stuck','stuckindigo.png','Solid Indigo',this,'catalog-img-stuck')"></div><span class="selected-color-name" id="color-name-stuck">Black</span></div>
+        </div>
+          <div class="color-selector">
+          <div class="color-selector-label">// COLOR</div>
+          <div class="color-dots"><div class="color-dot active" style="background:#1a1a1a" title="Black" onclick="selectProductColor('fly','fly-away-transparent.png','Solid Black',this,'catalog-img-fly')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('fly','flywhite.png','Solid White',this,'catalog-img-fly')"></div><div class="color-dot " style="background:#e8dcc8" title="Natural" onclick="selectProductColor('fly','flysolidnatural.png','Solid Natural',this,'catalog-img-fly')"></div><div class="color-dot " style="background:#b0aba3" title="Grey" onclick="selectProductColor('fly','flygrey.png','Solid Light Grey',this,'catalog-img-fly')"></div><span class="selected-color-name" id="color-name-fly">Black</span></div>
+        </div>
           <div class="catalog-label">SIZE</div>
           <div class="catalog-size-row" id="fly-sizes">
             <button class="catalog-size-btn" onclick="selectSize(this,'fly-sizes')">XS</button>
@@ -586,10 +619,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
           <div class="catalog-desc">Heavyweight 100% cotton. Unisex relaxed fit.<br>Screen printed in white on black.</div>
         </div>
         <div>
-          <div class="catalog-label">COLOR</div>
-          <div class="catalog-color-swatches">
-            <div class="catalog-swatch swatch-black active" title="Black" onclick="selectColor(this)"></div>
-          </div>
+          <div class="color-selector">
+          <div class="color-selector-label">// COLOR</div>
+          <div class="color-dots"><div class="color-dot active" style="background:#1a1a1a" title="Black" onclick="selectProductColor('stuck','stuck-in-place-black-hero.png','Solid Black',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('stuck','stuckwhite.png','Solid White',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#e8dcc8" title="Natural" onclick="selectProductColor('stuck','stucksolidnatural.png','Solid Natural',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#c8b89a" title="Tan" onclick="selectProductColor('stuck','stucktan.png','Solid Tan',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#3d5a80" title="Indigo" onclick="selectProductColor('stuck','stuckindigo.png','Solid Indigo',this,'catalog-img-stuck')"></div><span class="selected-color-name" id="color-name-stuck">Black</span></div>
+        </div>
+          <div class="color-selector">
+          <div class="color-selector-label">// COLOR</div>
+          <div class="color-dots"><div class="color-dot active" style="background:#1a1a1a" title="Black" onclick="selectProductColor('time','time.png','Solid Black',this,'catalog-img-time')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('time','timewhite.png','Solid White',this,'catalog-img-time')"></div><div class="color-dot " style="background:#e8dcc8" title="Cream" onclick="selectProductColor('time','timesolidcream.png','Solid Natural',this,'catalog-img-time')"></div><div class="color-dot " style="background:#b0aba3" title="Grey" onclick="selectProductColor('time','timelightgrey.png','Solid Light Grey',this,'catalog-img-time')"></div><div class="color-dot " style="background:#e8a0a0" title="Pink" onclick="selectProductColor('time','timepink.png','Solid Pink',this,'catalog-img-time')"></div><div class="color-dot " style="background:#c0392b" title="Red" onclick="selectProductColor('time','timesolidred.png','Solid Red',this,'catalog-img-time')"></div><div class="color-dot " style="background:#2e8b57" title="Green" onclick="selectProductColor('time','timekellygreen.png','Solid Kelly Green',this,'catalog-img-time')"></div><span class="selected-color-name" id="color-name-time">Black</span></div>
+        </div>
           <div class="catalog-label">SIZE</div>
           <div class="catalog-size-row" id="time-sizes">
             <button class="catalog-size-btn" onclick="selectSize(this,'time-sizes')">XS</button>
@@ -607,7 +644,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     <!-- LOGO TEE -->
     <div class="catalog-card">
       <div class="catalog-img-wrap">
-        <img id="logo-img" src="bulw4rk-cream-transparent.png" alt="bulw4rk Logo Tee" class="blend-light">
+        <img id="catalog-img-logo" src="bulw4rk-cream-transparent.png" alt="bulw4rk Logo Tee" class="blend-light">
       </div>
       <div class="catalog-info">
         <div>
@@ -617,13 +654,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
           <div class="catalog-desc">Heavyweight 100% cotton. Unisex relaxed fit.<br>Available in Cream and Ash.</div>
         </div>
         <div>
-          <div class="catalog-label">COLOR</div>
-          <div class="catalog-color-swatches">
-            <div class="catalog-swatch swatch-cream active" title="Cream"
-              onclick="selectColor(this);swapImg('logo-img','bulw4rk-cream-transparent.png')"></div>
-            <div class="catalog-swatch swatch-ash" title="Ash"
-              onclick="selectColor(this);swapImg('logo-img','bulw4rkshirt-transparent.png')"></div>
-          </div>
+          <div class="color-selector">
+          <div class="color-selector-label">// COLOR</div>
+          <div class="color-dots"><div class="color-dot active" style="background:#f0e6d3" title="Cream" onclick="selectProductColor('logo','bulwarkcream.png','Solid Natural',this,'logo-img')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('logo','bulwarkwhite.png','Solid White',this,'logo-img')"></div><div class="color-dot " style="background:#e8e0d0" title="Vintage" onclick="selectProductColor('logo','bulwarkvintagewhite.png','Solid Vintage White',this,'logo-img')"></div><div class="color-dot " style="background:#c8b89a" title="Tan" onclick="selectProductColor('logo','bulwarktan.png','Solid Tan',this,'logo-img')"></div><div class="color-dot " style="background:#98d4b0" title="Mint" onclick="selectProductColor('logo','bulwarkmint.png','Solid Mint',this,'logo-img')"></div><div class="color-dot " style="background:#c08090" title="Mauve" onclick="selectProductColor('logo','bulwarkmuave.png','Solid Mauve',this,'logo-img')"></div><div class="color-dot " style="background:#e8a0a0" title="Pink" onclick="selectProductColor('logo','bulwarkpink.png','Solid Pink',this,'logo-img')"></div><div class="color-dot " style="background:#f4c0c0" title="Light Pink" onclick="selectProductColor('logo','bulwarklightpink.png','Solid Light Pink',this,'logo-img')"></div><span class="selected-color-name" id="color-name-logo">Cream</span></div>
+        </div>
           <div class="catalog-label">SIZE</div>
           <div class="catalog-size-row" id="logo-sizes">
             <button class="catalog-size-btn" onclick="selectSize(this,'logo-sizes')">XS</button>
@@ -767,23 +801,24 @@ async function loadProductData() {
 
         if (!size) return;
 
-        // build color+size key and also default color size key
         const sizeKey = size.toUpperCase()
           .replace('X-SMALL','XS').replace('SMALL','S')
           .replace('MEDIUM','M').replace('LARGE','L')
           .replace('X-LARGE','XL').replace('2X-LARGE','2XL')
           .replace('3X-LARGE','3XL');
 
-        // store by size under default color
+        // store by color+size combo
+        const colorSizeKey = color + '|' + sizeKey;
+        VARIANT_MAP[key][colorSizeKey] = v.id;
+
+        // also store by size alone for default color
         if (color === defaultColor || !VARIANT_MAP[key][sizeKey]) {
           VARIANT_MAP[key][sizeKey] = v.id;
         }
 
-        // update price from first variant
+        // update price display
         const el = document.getElementById('price-' + key);
-        if (el && el.textContent === PRICES[key]) {
-          el.textContent = '$' + parseFloat(v.priceV2.amount).toFixed(2);
-        }
+        if (el) el.textContent = '$' + parseFloat(v.priceV2.amount).toFixed(2);
       });
     });
     console.log('Variants loaded:', VARIANT_MAP);
@@ -812,8 +847,12 @@ async function addToCart(variantGid, name, sizeGroupId, btn) {
   };
   const productKey = keyMap[baseId];
 
-  // get correct variant ID for selected size
-  let resolvedVariantGid = VARIANT_MAP[productKey]?.[size] || variantGid;
+  // get correct variant ID for selected color + size
+  const currentColor = selectedColors[productKey] || '';
+  const colorSizeKey = currentColor + '|' + size;
+  let resolvedVariantGid = VARIANT_MAP[productKey]?.[colorSizeKey]
+    || VARIANT_MAP[productKey]?.[size]
+    || variantGid;
 
   // get price
   const priceMap = {
@@ -986,6 +1025,33 @@ function goBack() {
     window.scrollTo(0, 0);
     setTimeout(initFadeIns, 80);
   }
+}
+
+
+// ── SELECTED COLORS STATE ──
+const selectedColors = {
+  stuck: 'Solid Black',
+  fly:   'Solid Black',
+  time:  'Solid Black',
+  logo:  'Solid Natural'
+};
+
+function selectProductColor(productKey, imgFile, shopifyColor, el, imgId) {
+  // update image
+  const img = document.getElementById(imgId);
+  if (img) {
+    img.style.transition = 'opacity .25s';
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = imgFile; img.style.opacity = '1'; }, 250);
+  }
+  // update active dot
+  el.closest('.color-dots').querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+  el.classList.add('active');
+  // update label
+  const nameEl = document.getElementById('color-name-' + productKey);
+  if (nameEl) nameEl.textContent = el.getAttribute('title');
+  // store selected color
+  selectedColors[productKey] = shopifyColor;
 }
 
 // HAMBURGER
