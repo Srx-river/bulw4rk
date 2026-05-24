@@ -40,6 +40,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 .nav-center{display:flex;gap:2rem;position:absolute;left:50%;transform:translateX(-50%);}
 .nav-center button{font-family:var(--mono);font-size:0.918rem;letter-spacing:.2em;color:var(--muted);background:none;border:none;cursor:pointer;transition:color .2s;padding:0;}
 .nav-center button:hover,.nav-center button.active{color:var(--text);}
+.nav-shopify{font-family:var(--mono);font-size:0.918rem;letter-spacing:.2em;color:var(--muted);text-decoration:none;cursor:pointer;transition:color .2s;padding:0;border-left:.5px solid var(--border);padding-left:2rem;}
+.nav-shopify:hover{color:var(--text);}
+.mobile-shopify{font-family:var(--mono);font-size:1.012rem;letter-spacing:.25em;color:var(--muted);text-decoration:none;border-bottom:.5px solid rgba(255,255,255,.04);padding:1.1rem 1.5rem;transition:color .2s,background .2s;min-height:52px;display:flex;align-items:center;}
+.mobile-shopify:hover,.mobile-shopify:active{color:var(--text);background:rgba(255,255,255,.02);}
 .nav-right{display:flex;gap:1rem;align-items:center;}
 .nav-cart{font-family:var(--mono);font-size:0.81rem;letter-spacing:.12em;color:var(--muted);background:none;border:none;cursor:pointer;transition:color .2s;padding:8px 0;min-height:44px;display:flex;align-items:center;}
 .nav-cart:hover{color:var(--text);}
@@ -444,6 +448,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     <button onclick="showPage('catalog')" id="nav-catalog">CATALOG</button>
     <button onclick="showPage('about')" id="nav-about">ABOUT</button>
     <button onclick="showPage('contact')" id="nav-contact">CONTACT</button>
+    <a href="https://bulw4rk.myshopify.com" target="_blank" rel="noopener" class="nav-shopify">SHOPIFY</a>
   </div>
   <div class="nav-right">
     <button class="nav-cart" id="cart-btn" onclick="toggleCart()">cart [<span id="cart-count">0</span>]</button>
@@ -458,6 +463,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
   <button onclick="showPage('catalog')">CATALOG</button>
   <button onclick="showPage('about')">ABOUT</button>
   <button onclick="showPage('contact')">CONTACT</button>
+  <a href="https://bulw4rk.myshopify.com" target="_blank" rel="noopener" class="nav-shopify mobile-shopify">SHOPIFY</a>
   <button onclick="toggleMenu()" style="color:rgba(212,212,204,.15);font-size:.55rem;letter-spacing:.2em">CLOSE ×</button>
 </div>
 
