@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  img-src 'self' data: https:;
+  connect-src https://bulw4rk.myshopify.com;
+  frame-ancestors 'none';
+">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>bulw4rk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -908,24 +917,61 @@ async function loadProductData() {
 }
 loadProductData();
 
+
+// ── SECURITY: HTML escape to prevent XSS in dynamic innerHTML ──
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+
+// ── CLIENT-SIDE RATE LIMITING ──────────────────────────────────────────────
+// Prevents cart spam and protects the Shopify Storefront API quota.
+// Max 5 add-to-cart actions per 15 minutes per product.
+const cartAttempts = {};
+const RATE_WINDOW = 15 * 60 * 1000; // 15 minutes
+const RATE_MAX    = 5;
+
+function checkRateLimit(productKey) {
+  const now = Date.now();
+  if (!cartAttempts[productKey]) cartAttempts[productKey] = [];
+  // Prune attempts outside the window
+  cartAttempts[productKey] = cartAttempts[productKey].filter(t => now - t < RATE_WINDOW);
+  if (cartAttempts[productKey].length >= RATE_MAX) {
+    return false; // blocked
+  }
+  cartAttempts[productKey].push(now);
+  return true; // allowed
+}
+
 // ── CART STATE ──
 let cart = []; // [{variantId, name, size, price, img, qty}]
 
 // ── ADD TO CART ──
 async function addToCart(variantGid, name, sizeGroupId, btn) {
+  // ── Rate limit check ──
+  const baseId = variantGid.split('/').pop();
+  const keyMap = {
+    '47363762258069': 'stuck', '47368903524501': 'fly',
+    '47361935310997': 'time',  '47361638203541': 'logo'
+  };
+  const rateKey = keyMap[baseId] || baseId;
+  if (!checkRateLimit(rateKey)) {
+    btn.textContent = 'SLOW DOWN';
+    setTimeout(() => { btn.textContent = 'ADD TO CART →'; }, 2000);
+    return;
+  }
+
   // get selected size
   const sizeEl = document.getElementById(sizeGroupId)?.querySelector('.catalog-size-btn.active');
   const size = sizeEl ? sizeEl.textContent.trim() : 'M';
 
-  // find the product key from base variant
-  const baseId = variantGid.split('/').pop();
-  const keyMap = {
-    '47363762258069': 'stuck',
-    '47368903524501': 'fly',
-    '47361935310997': 'time',
-    '47361638203541': 'logo'
-  };
-  const productKey = keyMap[baseId];
+  // product key already resolved above for rate limiting
+  const productKey = rateKey;
 
   // get correct variant ID for selected color + size
   const currentColor = selectedColors[productKey] || '';
@@ -1002,11 +1048,11 @@ function updateCartUI() {
     div.className = 'cart-item';
     div.innerHTML = `
       <div class="cart-item-img">
-        <img src="${item.img}" alt="${item.name}">
+        <img src="${escHtml(item.img)}" alt="${escHtml(item.name)}">
       </div>
       <div>
-        <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-meta">SIZE: ${item.size}${item.color ? ' · ' + item.color.toUpperCase() : ''}</div>
+        <div class="cart-item-name">${escHtml(item.name)}</div>
+        <div class="cart-item-meta">SIZE: ${escHtml(item.size)}${item.color ? ' · ' + escHtml(item.color).toUpperCase() : ''}</div>
         <div class="cart-qty">
           <button onclick="changeQty(${idx},-1)">−</button>
           <span>${item.qty}</span>
@@ -1055,7 +1101,12 @@ async function goCheckout() {
     const data = await sfFetch(q, { input: { lineItems } });
     const url = data?.data?.checkoutCreate?.checkout?.webUrl;
 
-    if (url) {
+    // Validate URL is a real Shopify domain before opening (prevent open redirect)
+    const isSafeUrl = url && (
+      url.startsWith('https://bulw4rk.myshopify.com') ||
+      url.startsWith('https://checkout.shopify.com')
+    );
+    if (isSafeUrl) {
       window.open(url, '_blank');
     } else {
       const cartItems = cart.map(i => {
@@ -1424,7 +1475,7 @@ function swapImg(imgId,src){
       <div class="contact-item">
         <div class="contact-item-label">// INSTAGRAM</div>
         <div class="contact-item-value">@bulw4rk_</div>
-        <a href="https://instagram.com/bulw4rk_" target="_blank" class="contact-item-link">FOLLOW US →</a>
+        <a href="https://instagram.com/bulw4rk_" target="_blank" rel="noopener noreferrer" class="contact-item-link">FOLLOW US →</a>
       </div>
 
     </div>
