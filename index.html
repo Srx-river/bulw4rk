@@ -217,6 +217,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 .catalog-buy-btn{font-family:var(--mono);font-size:0.81rem;letter-spacing:.2em;color:#eeeee8;background:none;border:.5px solid rgba(255,255,255,.2);padding:.82rem 1.2rem;cursor:pointer;transition:all .22s;width:100%;text-align:left;-webkit-tap-highlight-color:transparent;text-decoration:none;display:block;}
 .catalog-buy-btn:hover,.catalog-buy-btn:active{border-color:var(--crimson);background:var(--crimson-faint);color:#fff;}
 .catalog-buy-btn.disabled{opacity:.3;pointer-events:none;}
+@keyframes cardHighlight{0%{background:rgba(122,24,50,.16)}100%{background:var(--black)}}
+.catalog-card.highlight{animation:cardHighlight 1.4s ease;}
 
 /* ── ABOUT PAGE ── */
 #about{padding-top:var(--top);}
@@ -441,11 +443,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     <span>NOTHING IS SCARIER THAN BEING STUCK IN PLACE</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
     <span>IS IT STILL BEAUTIFUL IF IT CAN'T FLY</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
     <span>DO YOU TALK TO ME IN YOUR FREE TIME</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
+    <span>IF YOU SEE THIS, WE'VE ALREADY COLLIDED</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
     <span>bulw4rk</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
     <span>ALL FLESH ROTS</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
     <span>NOTHING IS SCARIER THAN BEING STUCK IN PLACE</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
     <span>IS IT STILL BEAUTIFUL IF IT CAN'T FLY</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
     <span>DO YOU TALK TO ME IN YOUR FREE TIME</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
+    <span>IF YOU SEE THIS, WE'VE ALREADY COLLIDED</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
     <span>bulw4rk</span><span class="sep">&nbsp;&nbsp;///&nbsp;&nbsp;</span>
   </div>
 </div>
@@ -492,7 +496,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
       <div class="hero-scroll-hint">SCROLL</div>
     </div>
     <div class="hero-right">
-      <div class="hero-img-wrap" onclick="showPage('catalog')" title="View in catalog" style="cursor:pointer">
+      <div class="hero-img-wrap" onclick="viewProduct('stuck')" title="View in catalog" style="cursor:pointer">
         <div class="featured-label">FEATURED ITEM</div>
         <div class="frame-corner tl"></div><div class="frame-corner tr"></div>
         <div class="frame-corner bl"></div><div class="frame-corner br"></div>
@@ -510,7 +514,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     </div>
     <div class="products-row">
 
-      <div class="product-card" onclick="showPage('catalog')">
+      <div class="product-card" onclick="viewProduct('stuck')">
         <div class="product-img-wrap">
           <img id="strip-img-stuck" src="stuck-in-place-black-hero.png" alt="Stuck in Place" loading="lazy" decoding="async">
           <div class="product-badge">SS25</div>
@@ -524,7 +528,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
         </div>
       </div>
 
-      <div class="product-card" onclick="showPage('catalog')">
+      <div class="product-card" onclick="viewProduct('fly')">
         <div class="product-img-wrap">
           <img id="strip-img-fly" src="fly-away-transparent.png" alt="Can't Fly" loading="lazy" decoding="async">
           <div class="product-badge">SS25</div>
@@ -538,7 +542,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
         </div>
       </div>
 
-      <div class="product-card" onclick="showPage('catalog')">
+      <div class="product-card" onclick="viewProduct('time')">
         <div class="product-img-wrap">
           <img id="strip-img-time" src="time.png" alt="Free Time" loading="lazy" decoding="async">
           <div class="product-badge">SS25</div>
@@ -552,7 +556,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
         </div>
       </div>
 
-      <div class="product-card" onclick="showPage('catalog')">
+      <div class="product-card" onclick="viewProduct('logo')">
         <div class="product-img-wrap">
           <img id="strip-img-logo" src="bulwarkcream.png" alt="bulw4rk Logo Tee" loading="lazy" decoding="async">
           <div class="product-badge">SS25</div>
@@ -566,7 +570,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
         </div>
       </div>
 
-      <div class="product-card" onclick="showPage('catalog')">
+      <div class="product-card" onclick="viewProduct('collision')">
         <div class="product-img-wrap">
           <img id="strip-img-collision" src="collisionnatural.png" alt="Collision" loading="lazy" decoding="async">
           <div class="product-badge">SS25</div>
@@ -618,7 +622,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
     <!-- STUCK IN PLACE -->
     <div class="catalog-card">
-      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-stuck').src,'Stuck in Place')">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(zoomSrc('catalog-img-stuck'),'Stuck in Place',document.getElementById('catalog-img-stuck').src)">
         <img id="catalog-img-stuck" src="stuck-in-place-black-hero.png" alt="Stuck in Place" loading="lazy" decoding="async">
       </div>
       <div class="catalog-info">
@@ -649,7 +653,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
     <!-- CAN'T FLY -->
     <div class="catalog-card">
-      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-fly').src,'Can\'t Fly')">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(zoomSrc('catalog-img-fly'),'Can\'t Fly',document.getElementById('catalog-img-fly').src)">
         <img id="catalog-img-fly" src="fly-away-transparent.png" alt="Can't Fly" loading="lazy" decoding="async">
       </div>
       <div class="catalog-info">
@@ -680,7 +684,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
     <!-- FREE TIME -->
     <div class="catalog-card">
-      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-time').src,'Free Time')">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(zoomSrc('catalog-img-time'),'Free Time',document.getElementById('catalog-img-time').src)">
         <img id="catalog-img-time" src="time.png" alt="Free Time" loading="lazy" decoding="async">
       </div>
       <div class="catalog-info">
@@ -721,7 +725,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
     <!-- LOGO TEE -->
     <div class="catalog-card">
-      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-logo').src,'bulw4rk Logo Tee')">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(zoomSrc('catalog-img-logo'),'bulw4rk Logo Tee',document.getElementById('catalog-img-logo').src)">
         <img id="catalog-img-logo" src="bulwarkcream.png" alt="bulw4rk Logo Tee" loading="lazy" decoding="async">
       </div>
       <div class="catalog-info">
@@ -753,7 +757,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
     <!-- COLLISION -->
     <div class="catalog-card">
-      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-collision').src,'Collision')">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(zoomSrc('catalog-img-collision'),'Collision',document.getElementById('catalog-img-collision').src)">
         <img id="catalog-img-collision" src="collisionnatural.png" alt="Collision" loading="lazy" decoding="async">
       </div>
       <div class="catalog-info">
@@ -1347,16 +1351,37 @@ function showPage(id, updateHash=true){
   if (pageHistory[pageHistory.length - 1] !== id) pageHistory.push(id);
 }
 
+// jump straight to a specific catalog item (used by home page cards) —
+// shows the catalog page, then smooth-scrolls to and highlights that product
+function viewProduct(key, updateHash=true){
+  showPage('catalog', false);
+  const card = document.getElementById('catalog-img-' + key)?.closest('.catalog-card');
+  if (card) {
+    setTimeout(() => {
+      const navOffset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--top')) || 78;
+      const top = card.getBoundingClientRect().top + window.scrollY - navOffset - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+      card.classList.add('highlight');
+      setTimeout(() => card.classList.remove('highlight'), 1400);
+    }, 60);
+  }
+  if (updateHash) window.location.hash = 'catalog/' + key;
+}
+
 // handle browser back/forward via hashchange
 window.addEventListener('hashchange', function(){
-  const id = window.location.hash.replace('#','') || 'home';
-  showPage(id, false);
+  const raw = window.location.hash.replace('#','') || 'home';
+  const [id, key] = raw.split('/');
+  if (id === 'catalog' && key) viewProduct(key, false);
+  else showPage(id, false);
 });
 
 // load correct page on initial visit based on hash
 (function(){
-  const id = window.location.hash.replace('#','') || 'home';
-  if(id !== 'home') showPage(id, false);
+  const raw = window.location.hash.replace('#','') || 'home';
+  const [id, key] = raw.split('/');
+  if (id === 'catalog' && key) viewProduct(key, false);
+  else if (id !== 'home') showPage(id, false);
 })();
 
 // FADE INS
@@ -1382,6 +1407,15 @@ function swapImg(imgId,src){
   const img=document.getElementById(imgId);
   img.style.transition='opacity .28s';img.style.opacity='0';
   setTimeout(()=>{img.src=src;img.style.opacity='1';},280);
+}
+
+// ── ZOOM QUALITY — the grid/catalog thumbnails are downsized for fast
+// loading; zoom/<filename> holds full-resolution versions of the same
+// image, fetched only when the lightbox is actually opened. lbOpen falls
+// back to the regular thumbnail if a given file has no zoom counterpart.
+function zoomSrc(imgId){
+  const filename = document.getElementById(imgId).src.split('/').pop();
+  return 'zoom/' + filename;
 }
 
 // ── LIGHTBOX ────────────────────────────────────────────────────────────────
@@ -1429,7 +1463,10 @@ function swapImg(imgId,src){
     lbHint.classList.add('hide');
   }
 
-  window.lbOpen = function(src, name) {
+  window.lbOpen = function(src, name, fallbackSrc) {
+    // set handlers before src so a fast/cached error can't race past onerror
+    lbImg.onload = () => { lbClampPan(); lbApplyTransform(false); };
+    lbImg.onerror = fallbackSrc ? () => { lbImg.onerror = null; lbImg.src = fallbackSrc; } : null;
     lbImg.src = src;
     lbName.textContent = name || '';
     lbScale = 1; lbTx = 0; lbTy = 0;
@@ -1437,7 +1474,6 @@ function swapImg(imgId,src){
     lbHint.classList.remove('hide');
     lbOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
-    lbImg.onload = () => { lbClampPan(); lbApplyTransform(false); };
   };
 
   function lbClose() {
