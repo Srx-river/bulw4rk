@@ -212,6 +212,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 .catalog-size-btn{font-family:var(--mono);font-size:0.702rem;letter-spacing:.1em;color:var(--muted);background:none;border:.5px solid rgba(255,255,255,.1);padding:5px 9px;cursor:pointer;transition:all .15s;min-width:34px;text-align:center;-webkit-tap-highlight-color:transparent;}
 .catalog-size-btn:hover,.catalog-size-btn:active{border-color:rgba(255,255,255,.35);color:var(--text);}
 .catalog-size-btn.active{border-color:var(--crimson);color:var(--text);}
+.catalog-size-btn:disabled{opacity:.25;text-decoration:line-through;cursor:not-allowed;}
 .catalog-price{font-size:1.148rem;color:var(--text);letter-spacing:.08em;margin-bottom:.7rem;}
 .catalog-buy-btn{font-family:var(--mono);font-size:0.81rem;letter-spacing:.2em;color:#eeeee8;background:none;border:.5px solid rgba(255,255,255,.2);padding:.82rem 1.2rem;cursor:pointer;transition:all .22s;width:100%;text-align:left;-webkit-tap-highlight-color:transparent;text-decoration:none;display:block;}
 .catalog-buy-btn:hover,.catalog-buy-btn:active{border-color:var(--crimson);background:var(--crimson-faint);color:#fff;}
@@ -495,7 +496,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
         <div class="featured-label">FEATURED ITEM</div>
         <div class="frame-corner tl"></div><div class="frame-corner tr"></div>
         <div class="frame-corner bl"></div><div class="frame-corner br"></div>
-        <img src="stuck-in-place-black-hero.png" alt="Stuck in Place — bulw4rk SS25" style="position:relative;z-index:2;width:100%;margin:0 auto;display:block;">
+        <img src="stuck-in-place-black-hero.png" alt="Stuck in Place — bulw4rk SS25" fetchpriority="high" style="position:relative;z-index:2;width:100%;margin:0 auto;display:block;">
         <div class="hero-img-tag">// SS25_001</div>
       </div>
     </div>
@@ -511,12 +512,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
       <div class="product-card" onclick="showPage('catalog')">
         <div class="product-img-wrap">
-          <img id="strip-img-stuck" src="stuck-in-place-black-hero.png" alt="Stuck in Place">
+          <img id="strip-img-stuck" src="stuck-in-place-black-hero.png" alt="Stuck in Place" loading="lazy" decoding="async">
           <div class="product-badge">SS25</div>
         </div>
         <div class="product-name">Stuck in Place</div>
         <div class="product-tagline">"nothing is scarier than being stuck in place,"</div>
-        <div class="color-swatches"><div class="color-swatch active" style="background:#1a1a1a;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Black" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stuck-in-place-black-hero.png',this)"></div><div class="color-swatch " style="background:#f0f0f0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="White" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stuckwhite.png',this)"></div><div class="color-swatch " style="background:#e8dcc8;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Natural" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stucksolidnatural.png',this)"></div><div class="color-swatch " style="background:#c8b89a;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Tan" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stucktan.png',this)"></div><div class="color-swatch " style="background:#3d5a80;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Indigo" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stuckindigo.png',this)"></div></div>
+        <div class="color-swatches"><div class="color-swatch active" style="background:#1a1a1a;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Black" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stuck-in-place-black-hero.png',this)"></div><div class="color-swatch " style="background:#f0f0f0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="White" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stuckwhite.png',this)"></div><div class="color-swatch " style="background:#e8dcc8;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Natural" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stucksolidnatural.png',this)"></div><div class="color-swatch " style="background:#c8b89a;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Cream" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stucktan.png',this)"></div><div class="color-swatch " style="background:#3d5a80;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Indigo" onclick="event.stopPropagation();stripColorSwap('strip-img-stuck','stuckindigo.png',this)"></div></div>
         <div class="product-footer">
           <span class="product-price">$23.99</span>
           <span class="product-add">VIEW →</span>
@@ -525,7 +526,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
       <div class="product-card" onclick="showPage('catalog')">
         <div class="product-img-wrap">
-          <img id="strip-img-fly" src="fly-away-transparent.png" alt="Can't Fly">
+          <img id="strip-img-fly" src="fly-away-transparent.png" alt="Can't Fly" loading="lazy" decoding="async">
           <div class="product-badge">SS25</div>
         </div>
         <div class="product-name">Can't Fly</div>
@@ -539,12 +540,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
       <div class="product-card" onclick="showPage('catalog')">
         <div class="product-img-wrap">
-          <img id="strip-img-time" src="time.png" alt="Free Time">
+          <img id="strip-img-time" src="time.png" alt="Free Time" loading="lazy" decoding="async">
           <div class="product-badge">SS25</div>
         </div>
         <div class="product-name">Free Time</div>
         <div class="product-tagline">"do you free your time to talk to me?"</div>
-        <div class="color-swatches"><div class="color-swatch active" style="background:#1a1a1a;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Black" onclick="event.stopPropagation();stripColorSwap('strip-img-time','time.png',this)"></div><div class="color-swatch " style="background:#f0f0f0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="White" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timewhite.png',this)"></div><div class="color-swatch " style="background:#e8dcc8;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Cream" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timesolidcream.png',this)"></div><div class="color-swatch " style="background:#b0aba3;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Grey" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timelightgrey.png',this)"></div><div class="color-swatch " style="background:#e8a0a0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Pink" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timepink.png',this)"></div><div class="color-swatch " style="background:#c0392b;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Red" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timesolidred.png',this)"></div><div class="color-swatch " style="background:#2e8b57;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Green" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timekellygreen.png',this)"></div></div>
+        <div class="color-swatches"><div class="color-swatch active" style="background:#1a1a1a;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Black" onclick="event.stopPropagation();stripColorSwap('strip-img-time','time.png',this)"></div><div class="color-swatch " style="background:#f0f0f0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="White" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timewhite.png',this)"></div><div class="color-swatch " style="background:#e8dcc8;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Cream" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timesolidcream.png',this)"></div><div class="color-swatch " style="background:#b0aba3;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Grey" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timelightgrey.png',this)"></div><div class="color-swatch " style="background:#e8a0a0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Light Pink" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timepink.png',this)"></div><div class="color-swatch " style="background:#c0392b;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Red" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timesolidred.png',this)"></div><div class="color-swatch " style="background:#2e8b57;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Green" onclick="event.stopPropagation();stripColorSwap('strip-img-time','timekellygreen.png',this)"></div></div>
         <div class="product-footer">
           <span class="product-price">$23.99</span>
           <span class="product-add">VIEW →</span>
@@ -553,14 +554,28 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 
       <div class="product-card" onclick="showPage('catalog')">
         <div class="product-img-wrap">
-          <img id="strip-img-logo" src="bulwarkcream.png" alt="bulw4rk Logo Tee">
+          <img id="strip-img-logo" src="bulwarkcream.png" alt="bulw4rk Logo Tee" loading="lazy" decoding="async">
           <div class="product-badge">SS25</div>
         </div>
         <div class="product-name">Logo Tee (Embroidered)</div>
         <div class="product-tagline">the signal, simplified</div>
-        <div class="color-swatches"><div class="color-swatch active" style="background:#f0e6d3;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Cream" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkcream.png',this)"></div><div class="color-swatch " style="background:#f0f0f0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="White" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkwhite.png',this)"></div><div class="color-swatch " style="background:#e8e0d0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Vintage" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkvintagewhite.png',this)"></div><div class="color-swatch " style="background:#c8b89a;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Tan" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarktan.png',this)"></div><div class="color-swatch " style="background:#98d4b0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Mint" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkmint.png',this)"></div><div class="color-swatch " style="background:#c08090;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Mauve" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkmuave.png',this)"></div><div class="color-swatch " style="background:#e8a0a0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Pink" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkpink.png',this)"></div><div class="color-swatch " style="background:#f4c0c0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Light Pink" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarklightpink.png',this)"></div></div>
+        <div class="color-swatches"><div class="color-swatch active" style="background:#f0e6d3;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Cream" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkcream.png',this)"></div><div class="color-swatch " style="background:#e8e0d0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Vintage" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkvintagewhite.png',this)"></div><div class="color-swatch " style="background:#c8b89a;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Tan" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarktan.png',this)"></div><div class="color-swatch " style="background:#98d4b0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Mint" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkmint.png',this)"></div><div class="color-swatch " style="background:#c08090;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Mauve" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkmuave.png',this)"></div><div class="color-swatch " style="background:#e8a0a0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Pink" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarkpink.png',this)"></div><div class="color-swatch " style="background:#f4c0c0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Soft Pink" onclick="event.stopPropagation();stripColorSwap('strip-img-logo','bulwarklightpink.png',this)"></div></div>
         <div class="product-footer">
           <span class="product-price">$20.99</span>
+          <span class="product-add">VIEW →</span>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="showPage('catalog')">
+        <div class="product-img-wrap">
+          <img id="strip-img-collision" src="collisionnatural.png" alt="Collision" loading="lazy" decoding="async">
+          <div class="product-badge">SS25</div>
+        </div>
+        <div class="product-name">Collision</div>
+        <div class="product-tagline">"if you see this, we've already collided."</div>
+        <div class="color-swatches"><div class="color-swatch active" style="background:#e8dcc8;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="Natural" onclick="event.stopPropagation();stripColorSwap('strip-img-collision','collisionnatural.png',this)"></div><div class="color-swatch " style="background:#f0f0f0;width:12px;height:12px;border-radius:50%;border:.5px solid rgba(255,255,255,.15);cursor:pointer;flex-shrink:0;" title="White" onclick="event.stopPropagation();stripColorSwap('strip-img-collision','collisionwhite.png',this)"></div></div>
+        <div class="product-footer">
+          <span class="product-price">$26.99</span>
           <span class="product-add">VIEW →</span>
         </div>
       </div>
@@ -596,7 +611,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
       <div class="catalog-eyebrow">// SS25 — FIRST TRANSMISSION</div>
       <h2 class="catalog-title">Catalog</h2>
     </div>
-    <div class="catalog-meta">4 PIECES AVAILABLE</div>
+    <div class="catalog-meta">5 PIECES AVAILABLE</div>
   </div>
 
   <div class="catalog-grid">
@@ -604,7 +619,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     <!-- STUCK IN PLACE -->
     <div class="catalog-card">
       <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-stuck').src,'Stuck in Place')">
-        <img id="catalog-img-stuck" src="stuck-in-place-black-hero.png" alt="Stuck in Place">
+        <img id="catalog-img-stuck" src="stuck-in-place-black-hero.png" alt="Stuck in Place" loading="lazy" decoding="async">
       </div>
       <div class="catalog-info">
         <div>
@@ -616,7 +631,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
         <div>
           <div class="color-selector">
           <div class="color-selector-label">// COLOR</div>
-          <div class="color-dots"><div class="color-dot active" style="background:#1a1a1a" title="Black" onclick="selectProductColor('stuck','stuck-in-place-black-hero.png','Solid Black',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('stuck','stuckwhite.png','Solid White',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#e8dcc8" title="Natural" onclick="selectProductColor('stuck','stucksolidnatural.png','Solid Natural',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#c8b89a" title="Tan" onclick="selectProductColor('stuck','stucktan.png','Solid Tan',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#3d5a80" title="Indigo" onclick="selectProductColor('stuck','stuckindigo.png','Solid Indigo',this,'catalog-img-stuck')"></div><span class="selected-color-name" id="color-name-stuck">Black</span></div>
+          <div class="color-dots"><div class="color-dot active" style="background:#1a1a1a" title="Black" onclick="selectProductColor('stuck','stuck-in-place-black-hero.png','Solid Black',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('stuck','stuckwhite.png','Solid White',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#e8dcc8" title="Natural" onclick="selectProductColor('stuck','stucksolidnatural.png','Solid Natural',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#c8b89a" title="Cream" onclick="selectProductColor('stuck','stucktan.png','Solid Cream',this,'catalog-img-stuck')"></div><div class="color-dot " style="background:#3d5a80" title="Indigo" onclick="selectProductColor('stuck','stuckindigo.png','Solid Indigo',this,'catalog-img-stuck')"></div><span class="selected-color-name" id="color-name-stuck">Black</span></div>
         </div>
           <div class="catalog-label">SIZE</div>
           <div class="catalog-size-row" id="stuck-sizes">
@@ -635,7 +650,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     <!-- CAN'T FLY -->
     <div class="catalog-card">
       <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-fly').src,'Can\'t Fly')">
-        <img id="catalog-img-fly" src="fly-away-transparent.png" alt="Can't Fly">
+        <img id="catalog-img-fly" src="fly-away-transparent.png" alt="Can't Fly" loading="lazy" decoding="async">
       </div>
       <div class="catalog-info">
         <div>
@@ -666,7 +681,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     <!-- FREE TIME -->
     <div class="catalog-card">
       <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-time').src,'Free Time')">
-        <img id="catalog-img-time" src="time.png" alt="Free Time">
+        <img id="catalog-img-time" src="time.png" alt="Free Time" loading="lazy" decoding="async">
       </div>
       <div class="catalog-info">
         <div>
@@ -681,9 +696,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
             <div class="color-dots">
               <div class="color-dot active" style="background:#1a1a1a" title="Black" onclick="selectProductColor('time','time.png','Solid Black',this,'catalog-img-time')"></div>
               <div class="color-dot" style="background:#f0f0f0" title="White" onclick="selectProductColor('time','timewhite.png','Solid White',this,'catalog-img-time')"></div>
-              <div class="color-dot" style="background:#e8dcc8" title="Cream" onclick="selectProductColor('time','timesolidcream.png','Solid Natural',this,'catalog-img-time')"></div>
+              <div class="color-dot" style="background:#e8dcc8" title="Cream" onclick="selectProductColor('time','timesolidcream.png','Solid Cream',this,'catalog-img-time')"></div>
               <div class="color-dot" style="background:#b0aba3" title="Grey" onclick="selectProductColor('time','timelightgrey.png','Solid Light Grey',this,'catalog-img-time')"></div>
-              <div class="color-dot" style="background:#e8a0a0" title="Pink" onclick="selectProductColor('time','timepink.png','Solid Pink',this,'catalog-img-time')"></div>
+              <div class="color-dot" style="background:#e8a0a0" title="Light Pink" onclick="selectProductColor('time','timepink.png','Solid Light Pink',this,'catalog-img-time')"></div>
               <div class="color-dot" style="background:#c0392b" title="Red" onclick="selectProductColor('time','timesolidred.png','Solid Red',this,'catalog-img-time')"></div>
               <div class="color-dot" style="background:#2e8b57" title="Green" onclick="selectProductColor('time','timekellygreen.png','Solid Kelly Green',this,'catalog-img-time')"></div>
               <span class="selected-color-name" id="color-name-time">Black</span>
@@ -707,7 +722,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
     <!-- LOGO TEE -->
     <div class="catalog-card">
       <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-logo').src,'bulw4rk Logo Tee')">
-        <img id="catalog-img-logo" src="bulwarkcream.png" alt="bulw4rk Logo Tee">
+        <img id="catalog-img-logo" src="bulwarkcream.png" alt="bulw4rk Logo Tee" loading="lazy" decoding="async">
       </div>
       <div class="catalog-info">
         <div>
@@ -719,7 +734,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
         <div>
           <div class="color-selector">
           <div class="color-selector-label">// COLOR</div>
-          <div class="color-dots"><div class="color-dot active" style="background:#f0e6d3" title="Cream" onclick="selectProductColor('logo','bulwarkcream.png','Solid Natural',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('logo','bulwarkwhite.png','Solid White',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#e8e0d0" title="Vintage" onclick="selectProductColor('logo','bulwarkvintagewhite.png','Solid Vintage White',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#c8b89a" title="Tan" onclick="selectProductColor('logo','bulwarktan.png','Solid Tan',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#98d4b0" title="Mint" onclick="selectProductColor('logo','bulwarkmint.png','Solid Mint',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#c08090" title="Mauve" onclick="selectProductColor('logo','bulwarkmuave.png','Solid Mauve',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#e8a0a0" title="Pink" onclick="selectProductColor('logo','bulwarkpink.png','Solid Pink',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#f4c0c0" title="Light Pink" onclick="selectProductColor('logo','bulwarklightpink.png','Solid Light Pink',this,'catalog-img-logo')"></div><span class="selected-color-name" id="color-name-logo">Cream</span></div>
+          <div class="color-dots"><div class="color-dot active" style="background:#f0e6d3" title="Cream" onclick="selectProductColor('logo','bulwarkcream.png','Soft Cream',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#e8e0d0" title="Vintage" onclick="selectProductColor('logo','bulwarkvintagewhite.png','Vintage White',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#c8b89a" title="Tan" onclick="selectProductColor('logo','bulwarktan.png','Tan',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#98d4b0" title="Mint" onclick="selectProductColor('logo','bulwarkmint.png','Mint',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#c08090" title="Mauve" onclick="selectProductColor('logo','bulwarkmuave.png','Mauve',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#e8a0a0" title="Pink" onclick="selectProductColor('logo','bulwarkpink.png','Pink',this,'catalog-img-logo')"></div><div class="color-dot " style="background:#f4c0c0" title="Soft Pink" onclick="selectProductColor('logo','bulwarklightpink.png','Soft Pink',this,'catalog-img-logo')"></div><span class="selected-color-name" id="color-name-logo">Cream</span></div>
         </div>
           <div class="catalog-label">SIZE</div>
           <div class="catalog-size-row" id="logo-sizes">
@@ -732,6 +747,37 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
           </div>
           <div class="catalog-price" id="price-logo">$20.99</div>
           <button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47361638203541','bulw4rk Logo Tee','logo-sizes',this)">ADD TO CART →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLLISION -->
+    <div class="catalog-card">
+      <div class="catalog-img-wrap" style="cursor:zoom-in" onclick="lbOpen(document.getElementById('catalog-img-collision').src,'Collision')">
+        <img id="catalog-img-collision" src="collisionnatural.png" alt="Collision" loading="lazy" decoding="async">
+      </div>
+      <div class="catalog-info">
+        <div>
+          <div class="catalog-badge">SS25 — 005</div>
+          <div class="catalog-name">Collision</div>
+          <div class="catalog-tagline">"if you see this, we've already collided."</div>
+          <div class="catalog-desc">100% ring-spun cotton. Unisex classic fit.<br>Available in Natural and White.</div>
+        </div>
+        <div>
+          <div class="color-selector">
+          <div class="color-selector-label">// COLOR</div>
+          <div class="color-dots"><div class="color-dot active" style="background:#e8dcc8" title="Natural" onclick="selectProductColor('collision','collisionnatural.png','Natural',this,'catalog-img-collision')"></div><div class="color-dot " style="background:#f0f0f0" title="White" onclick="selectProductColor('collision','collisionwhite.png','White',this,'catalog-img-collision')"></div><span class="selected-color-name" id="color-name-collision">Natural</span></div>
+        </div>
+          <div class="catalog-label">SIZE</div>
+          <div class="catalog-size-row" id="collision-sizes">
+            <button class="catalog-size-btn" onclick="selectSize(this,'collision-sizes')">S</button>
+            <button class="catalog-size-btn active" onclick="selectSize(this,'collision-sizes')">M</button>
+            <button class="catalog-size-btn" onclick="selectSize(this,'collision-sizes')">L</button>
+            <button class="catalog-size-btn" onclick="selectSize(this,'collision-sizes')">XL</button>
+            <button class="catalog-size-btn" onclick="selectSize(this,'collision-sizes')">2XL</button>
+          </div>
+          <div class="catalog-price" id="price-collision">$26.99</div>
+          <button class="catalog-buy-btn" onclick="addToCart('gid://shopify/ProductVariant/47568276521109','Collision','collision-sizes',this)">ADD TO CART →</button>
         </div>
       </div>
     </div>
@@ -817,25 +863,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);display:
 const SHOP  = 'bulw4rk.myshopify.com';
 const TOKEN = '6bf5ede2d34625600ca61b45918101ef';
 
-// ── PRICES (fallback) ──
-const PRICES = {
-  stuck: '$23.99',
-  fly:   '$24.99',
-  time:  '$23.99',
-  logo:  '$20.99'
-};
-
-// ── PRODUCT HANDLE → variant map (populated on load) ──
-// Base variant IDs (default/XS) — used as fallback
-const BASE_VARIANTS = {
-  stuck: 'gid://shopify/ProductVariant/47363762258069',
-  fly:   'gid://shopify/ProductVariant/47368903524501',
-  time:  'gid://shopify/ProductVariant/47361935310997',
-  logo:  'gid://shopify/ProductVariant/47361638203541'
-};
-
 // Will be populated with { productKey: { size: variantId } }
-const VARIANT_MAP = { stuck: {}, fly: {}, time: {}, logo: {} };
+const VARIANT_MAP = { stuck: {}, fly: {}, time: {}, logo: {}, collision: {} };
+// Will be populated with { productKey: { size: priceAmount } } from live Storefront data
+const PRICE_MAP = { stuck: {}, fly: {}, time: {}, logo: {}, collision: {} };
 
 // ── STOREFRONT API FETCH ──
 async function sfFetch(query, variables={}) {
@@ -865,6 +896,9 @@ async function loadProductData() {
     logo: product(handle: "bulw4rk-embroidered-t-shirt") {
       variants(first: 50) { nodes { id priceV2 { amount } selectedOptions { name value } } }
     }
+    collision: product(handle: "collision-bulw4rk-graphic-t-shirt") {
+      variants(first: 50) { nodes { id priceV2 { amount } selectedOptions { name value } } }
+    }
   }`;
 
   try {
@@ -876,7 +910,8 @@ async function loadProductData() {
       stuck: 'Solid Black',
       fly:   'Solid Black',
       time:  'Solid Black',
-      logo:  'Solid Natural'
+      logo:  'Soft Cream',
+      collision: 'Natural'
     };
 
     Object.entries(products).forEach(([key, product]) => {
@@ -901,16 +936,22 @@ async function loadProductData() {
         // store by color+size combo
         const colorSizeKey = color + '|' + sizeKey;
         VARIANT_MAP[key][colorSizeKey] = v.id;
+        PRICE_MAP[key][colorSizeKey] = v.priceV2.amount;
 
         // also store by size alone for default color
         if (color === defaultColor || !VARIANT_MAP[key][sizeKey]) {
           VARIANT_MAP[key][sizeKey] = v.id;
+          PRICE_MAP[key][sizeKey] = v.priceV2.amount;
         }
-
-        // price kept as hardcoded fallback
       });
     });
     console.log('Variants loaded:', VARIANT_MAP);
+
+    // Collision has real out-of-stock color/size combos (e.g. no Natural/L) —
+    // grey out sizes that don't exist for the currently selected color.
+    refreshSizeAvailability('collision');
+    // Refresh any already-visible price labels now that live prices are in.
+    Object.keys(VARIANT_MAP).forEach(updateDisplayedPrice);
   } catch(e) {
     console.log('Product data load error:', e);
   }
@@ -957,7 +998,8 @@ async function addToCart(variantGid, name, sizeGroupId, btn) {
   const baseId = variantGid.split('/').pop();
   const keyMap = {
     '47363762258069': 'stuck', '47368903524501': 'fly',
-    '47361935310997': 'time',  '47361638203541': 'logo'
+    '47361935310997': 'time',  '47361638203541': 'logo',
+    '47568276521109': 'collision', '47568276488341': 'collision'
   };
   const rateKey = keyMap[baseId] || baseId;
   if (!checkRateLimit(rateKey)) {
@@ -980,18 +1022,21 @@ async function addToCart(variantGid, name, sizeGroupId, btn) {
     || VARIANT_MAP[productKey]?.[size]
     || variantGid;
 
-  // get price
+  // get price — prefer the live Storefront price for this exact color+size,
+  // falling back to the flat hardcoded price if live data hasn't loaded yet
   const priceMap = {
-    stuck: '$23.99', fly: '$24.99', time: '$23.99', logo: '$20.99'
+    stuck: '$23.99', fly: '$24.99', time: '$23.99', logo: '$20.99', collision: '$26.99'
   };
-  const price = priceMap[productKey] || '';
+  const livePrice = PRICE_MAP[productKey]?.[colorSizeKey] || PRICE_MAP[productKey]?.[size];
+  const price = livePrice ? ('$' + parseFloat(livePrice).toFixed(2)) : (priceMap[productKey] || '');
 
   // get image — use whatever color the user currently has selected
   const imgMap = {
     '47363762258069': 'stuck-in-place-black-hero.png',
     '47368903524501': 'fly-away-transparent.png',
     '47361935310997': 'time.png',
-    '47361638203541': 'bulw4rk-cream-transparent.png'
+    '47361638203541': 'bulw4rk-cream-transparent.png',
+    '47568276521109': 'collisionnatural.png'
   };
   const img = selectedImages[productKey] || imgMap[baseId] || '';
 
@@ -1107,20 +1152,20 @@ async function goCheckout() {
       url.startsWith('https://checkout.shopify.com')
     );
     if (isSafeUrl) {
-      window.open(url, '_blank');
+      window.open(url, '_blank', 'noopener,noreferrer');
     } else {
       const cartItems = cart.map(i => {
         const vid = i.variantId.split('/').pop();
         return `${vid}:${i.qty}`;
       }).join(',');
-      window.open(`https://bulw4rk.myshopify.com/cart/${cartItems}`, '_blank');
+      window.open(`https://bulw4rk.myshopify.com/cart/${cartItems}`, '_blank', 'noopener,noreferrer');
     }
   } catch(e) {
     const cartItems = cart.map(i => {
       const vid = i.variantId.split('/').pop();
       return `${vid}:${i.qty}`;
     }).join(',');
-    window.open(`https://bulw4rk.myshopify.com/cart/${cartItems}`, '_blank');
+    window.open(`https://bulw4rk.myshopify.com/cart/${cartItems}`, '_blank', 'noopener,noreferrer');
   }
 
   btn.textContent = 'CHECKOUT →';
@@ -1169,14 +1214,16 @@ const selectedColors = {
   stuck: 'Solid Black',
   fly:   'Solid Black',
   time:  'Solid Black',
-  logo:  'Solid Natural'
+  logo:  'Soft Cream',
+  collision: 'Natural'
 };
 // Tracks which image file is currently showing per product
 const selectedImages = {
   stuck: 'stuck-in-place-black-hero.png',
   fly:   'fly-away-transparent.png',
   time:  'time.png',
-  logo:  'bulwarkcream.png'
+  logo:  'bulwarkcream.png',
+  collision: 'collisionnatural.png'
 };
 
 function selectProductColor(productKey, imgFile, shopifyColor, el, imgId) {
@@ -1196,6 +1243,49 @@ function selectProductColor(productKey, imgFile, shopifyColor, el, imgId) {
   // store selected color AND image so cart picks them up
   selectedColors[productKey] = shopifyColor;
   selectedImages[productKey] = imgFile;
+
+  if (productKey === 'collision') refreshSizeAvailability(productKey);
+  updateDisplayedPrice(productKey);
+}
+
+// ── SIZE AVAILABILITY — disables sizes that don't exist for the selected
+// color (Collision has real gaps in its Shopify variant grid, e.g. no
+// Natural/L). Only meaningful once VARIANT_MAP has granular color+size data.
+function refreshSizeAvailability(productKey) {
+  const sizeRow = document.getElementById(productKey + '-sizes');
+  const variants = VARIANT_MAP[productKey];
+  if (!sizeRow || !variants) return;
+  const hasColorSizeData = Object.keys(variants).some(k => k.includes('|'));
+  if (!hasColorSizeData) return;
+
+  const color = selectedColors[productKey];
+  const buttons = [...sizeRow.querySelectorAll('.catalog-size-btn')];
+  let activeBtn = sizeRow.querySelector('.catalog-size-btn.active');
+
+  buttons.forEach(btn => {
+    const size = btn.textContent.trim();
+    btn.disabled = !variants[color + '|' + size];
+  });
+
+  if (activeBtn && activeBtn.disabled) {
+    activeBtn.classList.remove('active');
+    const firstAvailable = buttons.find(b => !b.disabled);
+    if (firstAvailable) firstAvailable.classList.add('active');
+  }
+}
+
+// ── LIVE PRICE DISPLAY — reflects the real Storefront price for the
+// currently selected color+size once product data has loaded.
+function updateDisplayedPrice(productKey) {
+  const sizeRow = document.getElementById(productKey + '-sizes');
+  const priceEl = document.getElementById('price-' + productKey);
+  const activeBtn = sizeRow?.querySelector('.catalog-size-btn.active');
+  if (!priceEl || !activeBtn) return;
+
+  const size = activeBtn.textContent.trim();
+  const color = selectedColors[productKey];
+  const amount = PRICE_MAP[productKey]?.[color + '|' + size] || PRICE_MAP[productKey]?.[size];
+  if (amount) priceEl.textContent = '$' + parseFloat(amount).toFixed(2);
 }
 
 
@@ -1286,6 +1376,7 @@ function selectColor(el){
 function selectSize(el,id){
   document.getElementById(id).querySelectorAll('button').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
+  updateDisplayedPrice(id.replace('-sizes',''));
 }
 function swapImg(imgId,src){
   const img=document.getElementById(imgId);
